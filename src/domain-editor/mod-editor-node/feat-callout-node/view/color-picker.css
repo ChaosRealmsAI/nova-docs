@@ -1,0 +1,89 @@
+/**
+ * Color Picker Styles
+ *
+ * 颜色选择器样式 - 简洁的颜色方块
+ */
+
+/* 主题变量 */
+.color-picker-container {
+  --picker-bg: var(--notion-bg-dialog, #ffffff);
+  --picker-shadow: 0 2px 8px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.1);
+}
+
+.dark .color-picker-container {
+  --picker-bg: var(--notion-bg-dialog, #2f2f2f);
+  --picker-shadow: 0 2px 8px rgba(0, 0, 0, 0.35), 0 0 1px rgba(0, 0, 0, 0.4);
+}
+
+.color-picker-container {
+  position: absolute;
+  z-index: 1000;
+  background: var(--picker-bg);
+  border-radius: 8px;
+  box-shadow: var(--picker-shadow);
+  padding: 6px;
+}
+
+/* 颜色网格 */
+.color-picker-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4px;
+}
+
+/* 颜色项 */
+.color-picker-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  cursor: pointer;
+  transition: transform 0.12s ease;
+}
+
+.color-picker-item:hover {
+  transform: scale(1.15);
+}
+
+.color-picker-item:active {
+  transform: scale(1.05);
+}
+
+/* 颜色方块 */
+.color-picker-swatch {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+}
+
+.dark .color-picker-swatch {
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+/* 选中状态 */
+.color-picker-item-selected .color-picker-swatch {
+  width: 22px;
+  height: 22px;
+}
+
+/* 勾选图标 */
+.color-picker-check {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.3));
+}
+
+.color-picker-check svg {
+  width: 14px;
+  height: 14px;
+}

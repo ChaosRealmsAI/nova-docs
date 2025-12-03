@@ -1,0 +1,238 @@
+/**
+ * Selection Toolbar 样式
+ * 类似 Notion / 飞书的气泡菜单
+ */
+
+/* 主工具栏 */
+.selection-toolbar {
+  position: fixed;
+  z-index: 1000;
+  transform: translateX(-50%);
+  animation: selection-toolbar-appear 0.15s ease-out;
+}
+
+@keyframes selection-toolbar-appear {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+.selection-toolbar-content {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 4px;
+  background: #1f1f1f;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+/* 按钮组 */
+.selection-toolbar-group {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+/* 分隔线 */
+.selection-toolbar-divider {
+  width: 1px;
+  height: 24px;
+  background: rgba(255, 255, 255, 0.15);
+  margin: 0 4px;
+}
+
+/* 工具栏按钮 */
+.selection-toolbar-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: transparent;
+  border-radius: 4px;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.8);
+  transition: all 0.1s ease;
+}
+
+.selection-toolbar-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+.selection-toolbar-btn.active {
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+}
+
+.selection-toolbar-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* 颜色指示器 */
+.color-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.color-indicator svg {
+  width: 16px;
+  height: 16px;
+}
+
+.color-indicator-bar {
+  width: 14px;
+  height: 3px;
+  border-radius: 1px;
+}
+
+/* 箭头指示器 */
+.selection-toolbar-arrow {
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid #1f1f1f;
+}
+
+/* 颜色选择器 - 与 handle-menu 保持一致 */
+.selection-color-picker {
+  position: fixed;
+  z-index: 1001;
+  transform: translateX(-50%);
+  background: var(--notion-bg-dialog, #fff);
+  border-radius: 10px;
+  box-shadow: var(--notion-shadow-dialog, 0 8px 24px rgba(0, 0, 0, 0.12));
+  padding: 8px;
+  animation: color-picker-appear 0.15s ease-out;
+}
+
+@keyframes color-picker-appear {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+/* 颜色分区 */
+.selection-color-picker .color-section {
+  margin-bottom: 12px;
+}
+
+.selection-color-picker .color-section:last-child {
+  margin-bottom: 0;
+}
+
+.selection-color-picker .color-section-title {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 120%;
+  padding: 0 8px;
+  margin-bottom: 8px;
+  color: var(--notion-text-tertiary, rgba(55, 53, 47, 0.45));
+}
+
+.selection-color-picker .color-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 4px;
+  padding: 4px;
+}
+
+/* 颜色选项 - 使用 ::before 伪元素显示纯色块 */
+.selection-color-picker .color-option {
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  background: transparent;
+  transition: border-color 0.15s ease, transform 0.1s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.selection-color-picker .color-option:hover {
+  border-color: rgba(55, 53, 47, 0.3);
+  transform: scale(1.1);
+}
+
+.selection-color-picker .color-option.selected {
+  border-color: #2383e2;
+}
+
+.selection-color-picker .color-option::before {
+  content: '';
+  width: 24px;
+  height: 24px;
+  border-radius: 3px;
+  background: currentColor;
+}
+
+/* 文字颜色 - 使用 color + currentColor */
+.selection-color-picker .color-option.text-color-default { color: rgba(55, 53, 47, 0.95); }
+.selection-color-picker .color-option.text-color-gray { color: rgba(155, 154, 151, 0.95); }
+.selection-color-picker .color-option.text-color-brown { color: rgba(100, 71, 58, 0.95); }
+.selection-color-picker .color-option.text-color-orange { color: rgba(217, 115, 13, 0.95); }
+.selection-color-picker .color-option.text-color-yellow { color: rgba(203, 145, 47, 0.95); }
+.selection-color-picker .color-option.text-color-green { color: rgba(68, 131, 97, 0.95); }
+.selection-color-picker .color-option.text-color-blue { color: rgba(51, 126, 169, 0.95); }
+.selection-color-picker .color-option.text-color-purple { color: rgba(144, 101, 176, 0.95); }
+.selection-color-picker .color-option.text-color-pink { color: rgba(193, 76, 138, 0.95); }
+.selection-color-picker .color-option.text-color-red { color: rgba(212, 76, 71, 0.95); }
+
+/* 背景颜色 - 浅色背景 */
+.selection-color-picker .color-option.bg-color-default::before { background: transparent !important; border: 1px dashed rgba(55, 53, 47, 0.3); }
+.selection-color-picker .color-option.bg-color-gray::before { background: rgba(235, 236, 237, 1) !important; }
+.selection-color-picker .color-option.bg-color-brown::before { background: rgba(233, 229, 227, 1) !important; }
+.selection-color-picker .color-option.bg-color-orange::before { background: rgba(250, 235, 221, 1) !important; }
+.selection-color-picker .color-option.bg-color-yellow::before { background: rgba(251, 243, 219, 1) !important; }
+.selection-color-picker .color-option.bg-color-green::before { background: rgba(221, 237, 234, 1) !important; }
+.selection-color-picker .color-option.bg-color-blue::before { background: rgba(221, 235, 241, 1) !important; }
+.selection-color-picker .color-option.bg-color-purple::before { background: rgba(234, 228, 242, 1) !important; }
+.selection-color-picker .color-option.bg-color-pink::before { background: rgba(244, 223, 235, 1) !important; }
+.selection-color-picker .color-option.bg-color-red::before { background: rgba(251, 228, 228, 1) !important; }
+
+/* 暗黑模式 */
+.dark .selection-color-picker {
+  background: #2f2f2f;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+.dark .selection-color-picker .color-section-title {
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.dark .selection-color-picker .color-option:hover {
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* 暗黑模式下的背景色 - 增加对比度 */
+.dark .selection-color-picker .color-option.bg-color-default::before { border-color: rgba(255, 255, 255, 0.3); }
+.dark .selection-color-picker .color-option.bg-color-gray::before { background: rgba(155, 154, 151, 0.4) !important; }
+.dark .selection-color-picker .color-option.bg-color-brown::before { background: rgba(217, 115, 13, 0.3) !important; }
+.dark .selection-color-picker .color-option.bg-color-orange::before { background: rgba(245, 93, 0, 0.3) !important; }
+.dark .selection-color-picker .color-option.bg-color-yellow::before { background: rgba(233, 168, 0, 0.3) !important; }
+.dark .selection-color-picker .color-option.bg-color-green::before { background: rgba(68, 131, 97, 0.3) !important; }
+.dark .selection-color-picker .color-option.bg-color-blue::before { background: rgba(51, 126, 169, 0.3) !important; }
+.dark .selection-color-picker .color-option.bg-color-purple::before { background: rgba(144, 101, 176, 0.3) !important; }
+.dark .selection-color-picker .color-option.bg-color-pink::before { background: rgba(193, 76, 138, 0.3) !important; }
+.dark .selection-color-picker .color-option.bg-color-red::before { background: rgba(212, 76, 71, 0.3) !important; }

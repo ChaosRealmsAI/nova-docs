@@ -1,0 +1,208 @@
+/* 
+ * 🎨 Lark/Feishu Style Variables Reproduction
+ */
+:root {
+  --line-border-card: rgba(31, 35, 41, 0.15);
+  --bg-body: #ffffff;
+  --bg-float: #ffffff;
+  --text-title: #1f2329;
+  --text-caption: #8f959e;
+  --primary-pri-500: #3370ff;
+  --primary-pri-50: #f0f4ff;
+  --shadow-s1-down: 0px 2px 4px 0px rgba(0, 0, 0, 0.04);
+  --fill-hover: rgba(31, 35, 41, 0.05);
+  --fill-active: rgba(31, 35, 41, 0.1);
+}
+
+[data-theme='dark'] {
+  --line-border-card: rgba(235, 235, 235, 0.15);
+  --bg-body: #1a1a1a;
+  --bg-float: #292929;
+  --text-title: #ebebeb;
+  --text-caption: #757575;
+  --fill-hover: rgba(255, 255, 255, 0.08);
+}
+
+/* Container */
+.mermaid-container {
+  border: 1px solid var(--line-border-card);
+  border-radius: 8px;
+  background: var(--bg-body);
+  transition: all 0.2s ease;
+  overflow: hidden;
+  margin: 1rem 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.mermaid-container:hover {
+  box-shadow: var(--shadow-s1-down);
+  border-color: var(--primary-pri-500);
+}
+
+/* Toolbar */
+.mermaid-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--line-border-card);
+  background: var(--bg-float);
+  flex-shrink: 0;
+}
+
+.mermaid-title {
+  font-size: 12px;
+  color: var(--text-caption);
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.mermaid-mode-group {
+  display: flex;
+  background: var(--fill-hover);
+  padding: 2px;
+  border-radius: 6px;
+  gap: 2px;
+}
+
+.mermaid-mode-btn {
+  padding: 2px 8px;
+  font-size: 11px;
+  border-radius: 4px;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  color: var(--text-caption);
+  transition: all 0.2s;
+}
+
+.mermaid-mode-btn:hover {
+  color: var(--text-title);
+}
+
+.mermaid-mode-btn.active {
+  background: var(--bg-body);
+  color: var(--primary-pri-500);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  font-weight: 500;
+}
+
+/* Layout System */
+.mermaid-content-wrapper {
+  display: flex;
+  height: 400px; /* 固定高度 */
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+/* Panes */
+.mermaid-pane {
+  flex: 1;
+  min-width: 0; /* Prevent overflow */
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  transition: flex-grow 0.3s ease, opacity 0.2s ease;
+}
+
+.mermaid-editor-pane {
+  background: var(--bg-float);
+  border-right: 1px solid var(--line-border-card);
+}
+
+.mermaid-preview-pane {
+  background: var(--bg-body);
+  overflow: auto;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Visibility Logic */
+.mode-code .mermaid-preview-pane {
+  display: none;
+}
+
+.mode-preview .mermaid-editor-pane {
+  display: none;
+}
+
+.mode-split .mermaid-editor-pane {
+  border-right: 1px solid var(--line-border-card);
+}
+
+/* Editor */
+.mermaid-textarea {
+  width: 100%;
+  height: 100%;
+  border: none;
+  resize: none;
+  padding: 16px;
+  font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text-title);
+  background: transparent;
+  outline: none;
+}
+
+/* Actions */
+.mermaid-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.mermaid-btn {
+  padding: 4px 12px;
+  font-size: 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--text-title);
+  transition: all 0.2s;
+}
+
+.mermaid-btn:hover {
+  background: var(--fill-hover);
+}
+
+.mermaid-btn.primary {
+  background: var(--primary-pri-500);
+  color: white;
+}
+
+.mermaid-btn.primary:hover {
+  opacity: 0.9;
+}
+
+/* Read Mode Overlay */
+.mermaid-read-mode {
+  position: relative;
+  min-height: 100px;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+.mermaid-edit-trigger {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  opacity: 0;
+  transition: opacity 0.2s;
+  background: var(--bg-body);
+  border: 1px solid var(--line-border-card);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+  color: var(--text-title);
+}
+
+.mermaid-container:hover .mermaid-edit-trigger {
+  opacity: 1;
+}

@@ -1,0 +1,52 @@
+{
+  "name": "syllo",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "pnpm --filter @nova/web dev",
+    "build": "pnpm --filter @nova/web build",
+    "clean": "pnpm -r clean && rm -rf node_modules",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint . --ext .ts,.tsx",
+    "lint:fix": "eslint . --ext .ts,.tsx --fix",
+    "test": "vitest run",
+    "test:ui": "vitest --ui",
+    "validate": "pnpm typecheck && pnpm lint"
+  },
+  "dependencies": {
+    "@tiptap/core": "^3.10.7",
+    "@tiptap/extension-color": "^3.10.7",
+    "@tiptap/extension-dropcursor": "^3.10.7",
+    "@tiptap/extension-heading": "^3.12.0",
+    "@tiptap/extension-highlight": "^3.10.7",
+    "@tiptap/extension-task-item": "^3.10.7",
+    "@tiptap/extension-task-list": "^3.10.7",
+    "@tiptap/extension-text-style": "^3.10.7",
+    "@tiptap/extension-underline": "^3.10.7",
+    "@tiptap/extension-unique-id": "^3.10.7",
+    "@tiptap/pm": "^3.10.7",
+    "@tiptap/react": "^3.10.7",
+    "mermaid": "^11.12.2",
+    "prosemirror-dropcursor": "^1.8.2",
+    "prosemirror-state": "^1.4.4",
+    "prosemirror-transform": "^1.10.5",
+    "react": "^18.3.1",
+    "tippy.js": "^6.3.7"
+  },
+  "devDependencies": {
+    "@tiptap/starter-kit": "^3.10.7",
+    "@types/node": "^22.0.0",
+    "@types/react": "^18.3.0",
+    "@typescript-eslint/eslint-plugin": "^8.46.4",
+    "@typescript-eslint/parser": "^8.46.4",
+    "@vitest/ui": "^4.0.9",
+    "eslint": "^9.39.1",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "happy-dom": "^20.0.10",
+    "tsx": "^4.20.6",
+    "typescript": "~5.9.3",
+    "vitest": "^4.0.9"
+  }
+}

@@ -1,0 +1,752 @@
+/**
+ * 基础节点样式 - 一比一复刻原项目
+ * 样式源：syllo-before-refactor/apps/desktop/src/renderer/styles/notion-editor.css
+ * 颜色系统：使用 shadcn/ui 主题变量
+ */
+
+/* ==================== 覆盖 Tailwind prose 颜色 ==================== */
+.prose {
+  color: var(--foreground) !important;
+}
+
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4,
+.prose h5,
+.prose h6 {
+  color: var(--foreground) !important;
+}
+
+.prose p,
+.prose li,
+.prose td,
+.prose th {
+  color: var(--foreground) !important;
+}
+
+/* ==================== 编辑器容器 ==================== */
+.ProseMirror {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--foreground);
+  transition: color 0.3s ease;
+}
+
+/* ==================== 标题 ==================== */
+.ProseMirror h1,
+.ProseMirror h2,
+.ProseMirror h3,
+.ProseMirror h4,
+.ProseMirror h5,
+.ProseMirror h6 {
+  color: var(--foreground);
+  transition: color 0.3s ease;
+}
+
+.ProseMirror h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.ProseMirror h2 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-top: 1.75rem;
+  margin-bottom: 0.875rem;
+}
+
+.ProseMirror h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.ProseMirror h4 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-top: 1.25rem;
+  margin-bottom: 0.625rem;
+}
+
+/* ==================== 占位符 ==================== */
+.ProseMirror .is-empty::before {
+  content: attr(data-placeholder);
+  float: left;
+  color: var(--muted-foreground);
+  opacity: 0.6;
+  pointer-events: none;
+  height: 0;
+}
+
+.ProseMirror .is-empty::after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+.ProseMirror .is-empty {
+  min-height: 1.25rem;
+}
+
+/* ==================== 列表 ==================== */
+.ProseMirror ul {
+  margin: 0.75rem 0;
+  padding-left: 1.75rem;
+  list-style-type: disc;
+}
+
+.ProseMirror ol {
+  margin: 0.75rem 0;
+  padding-left: 1.75rem;
+  list-style-type: decimal;
+}
+
+.ProseMirror li {
+  margin: 0.25rem 0;
+}
+
+/* 嵌套列表 */
+.ProseMirror ul ul {
+  list-style-type: circle;
+}
+
+.ProseMirror ul ul ul {
+  list-style-type: square;
+}
+
+/* 列表标记颜色 - 使用主题色 */
+.ProseMirror ul::marker,
+.ProseMirror ol::marker,
+.ProseMirror li::marker {
+  color: var(--primary);
+}
+
+/* ==================== 任务列表 ==================== */
+.ProseMirror ul[data-type="taskList"] {
+  list-style: none;
+  padding-left: 0;
+}
+
+.ProseMirror ul[data-type="taskList"] li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.ProseMirror ul[data-type="taskList"] li > label {
+  flex: 0 0 auto;
+  margin-top: 0.25rem;
+}
+
+.ProseMirror ul[data-type="taskList"] li > label input[type="checkbox"] {
+  width: 1rem;
+  height: 1rem;
+  cursor: pointer;
+}
+
+.ProseMirror ul[data-type="taskList"] li > div {
+  flex: 1 1 auto;
+}
+
+/* ==================== 代码块 ==================== */
+.ProseMirror pre,
+.code-block-custom {
+  background: var(--muted);
+  color: var(--foreground);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin: 1rem 0;
+  overflow-x: auto;
+  font-family: 'Fira Code', 'Courier New', monospace;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* 代码块包装器 - 用于自定义节点视图 */
+.code-block-wrapper {
+  position: relative;
+  margin: 1.5rem 0;
+}
+
+.code-block-wrapper .ProseMirror-selectednode {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+  border-radius: 0.5rem;
+}
+
+/* 自定义代码块包装器内的 pre 样式 */
+.code-block-wrapper pre {
+  background: var(--muted);
+  color: var(--foreground);
+  margin: 0;
+  padding: 1rem;
+  overflow-x: auto;
+  font-family: 'Fira Code', 'Courier New', monospace;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.code-block-wrapper pre code {
+  background: none;
+  color: inherit;
+  padding: 0;
+  border-radius: 0;
+  font-size: inherit;
+  display: block;
+  white-space: pre;
+}
+
+/* NodeViewContent 生成的 code 元素样式 */
+.code-block-wrapper pre code[data-node-view-content] {
+  outline: none;
+}
+
+.ProseMirror code {
+  background: var(--muted);
+  color: var(--foreground);
+  padding: 0.125rem 0.375rem;
+  border-radius: 0.25rem;
+  font-family: 'Fira Code', 'Courier New', monospace;
+  font-size: 0.875rem;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.ProseMirror pre code {
+  background: none;
+  color: inherit;
+  padding: 0;
+  border-radius: 0;
+  font-size: inherit;
+}
+
+/* ==================== 语法高亮样式 ==================== */
+/* 基于 GitHub 主题的语法高亮 */
+.ProseMirror pre code .hljs-comment,
+.ProseMirror pre code .hljs-quote,
+.code-block-wrapper pre code .hljs-comment,
+.code-block-wrapper pre code .hljs-quote {
+  color: #6a737d;
+  font-style: italic;
+}
+
+.ProseMirror pre code .hljs-keyword,
+.ProseMirror pre code .hljs-selector-tag,
+.ProseMirror pre code .hljs-subst,
+.code-block-wrapper pre code .hljs-keyword,
+.code-block-wrapper pre code .hljs-selector-tag,
+.code-block-wrapper pre code .hljs-subst {
+  color: #d73a49;
+  font-weight: 600;
+}
+
+.ProseMirror pre code .hljs-number,
+.ProseMirror pre code .hljs-literal,
+.ProseMirror pre code .hljs-variable,
+.ProseMirror pre code .hljs-template-variable,
+.ProseMirror pre code .hljs-tag .hljs-attr,
+.code-block-wrapper pre code .hljs-number,
+.code-block-wrapper pre code .hljs-literal,
+.code-block-wrapper pre code .hljs-variable,
+.code-block-wrapper pre code .hljs-template-variable,
+.code-block-wrapper pre code .hljs-tag .hljs-attr {
+  color: #005cc5;
+}
+
+.ProseMirror pre code .hljs-string,
+.ProseMirror pre code .hljs-doctag,
+.code-block-wrapper pre code .hljs-string,
+.code-block-wrapper pre code .hljs-doctag {
+  color: #032f62;
+}
+
+.ProseMirror pre code .hljs-title,
+.ProseMirror pre code .hljs-section,
+.ProseMirror pre code .hljs-selector-id,
+.code-block-wrapper pre code .hljs-title,
+.code-block-wrapper pre code .hljs-section,
+.code-block-wrapper pre code .hljs-selector-id {
+  color: #6f42c1;
+  font-weight: 600;
+}
+
+.ProseMirror pre code .hljs-type,
+.ProseMirror pre code .hljs-class .hljs-title,
+.code-block-wrapper pre code .hljs-type,
+.code-block-wrapper pre code .hljs-class .hljs-title {
+  color: #6f42c1;
+}
+
+.ProseMirror pre code .hljs-tag,
+.ProseMirror pre code .hljs-name,
+.ProseMirror pre code .hljs-attribute,
+.code-block-wrapper pre code .hljs-tag,
+.code-block-wrapper pre code .hljs-name,
+.code-block-wrapper pre code .hljs-attribute {
+  color: #22863a;
+  font-weight: 600;
+}
+
+.ProseMirror pre code .hljs-regexp,
+.ProseMirror pre code .hljs-link,
+.code-block-wrapper pre code .hljs-regexp,
+.code-block-wrapper pre code .hljs-link {
+  color: #032f62;
+}
+
+.ProseMirror pre code .hljs-symbol,
+.ProseMirror pre code .hljs-bullet,
+.code-block-wrapper pre code .hljs-symbol,
+.code-block-wrapper pre code .hljs-bullet {
+  color: #e36209;
+}
+
+.ProseMirror pre code .hljs-built_in,
+.ProseMirror pre code .hljs-builtin-name,
+.code-block-wrapper pre code .hljs-built_in,
+.code-block-wrapper pre code .hljs-builtin-name {
+  color: #005cc5;
+}
+
+.ProseMirror pre code .hljs-meta,
+.code-block-wrapper pre code .hljs-meta {
+  color: #6a737d;
+}
+
+.ProseMirror pre code .hljs-deletion,
+.code-block-wrapper pre code .hljs-deletion {
+  background: #ffeef0;
+  color: #b31d28;
+}
+
+.ProseMirror pre code .hljs-addition,
+.code-block-wrapper pre code .hljs-addition {
+  background: #f0fff4;
+  color: #22863a;
+}
+
+.ProseMirror pre code .hljs-emphasis,
+.code-block-wrapper pre code .hljs-emphasis {
+  font-style: italic;
+}
+
+.ProseMirror pre code .hljs-strong,
+.code-block-wrapper pre code .hljs-strong {
+  font-weight: 700;
+}
+
+/* 深色主题下的语法高亮 */
+.dark .ProseMirror pre code .hljs-comment,
+.dark .ProseMirror pre code .hljs-quote,
+.dark .code-block-wrapper pre code .hljs-comment,
+.dark .code-block-wrapper pre code .hljs-quote {
+  color: #8b949e;
+}
+
+.dark .ProseMirror pre code .hljs-keyword,
+.dark .ProseMirror pre code .hljs-selector-tag,
+.dark .ProseMirror pre code .hljs-subst,
+.dark .code-block-wrapper pre code .hljs-keyword,
+.dark .code-block-wrapper pre code .hljs-selector-tag,
+.dark .code-block-wrapper pre code .hljs-subst {
+  color: #ff7b72;
+}
+
+.dark .ProseMirror pre code .hljs-number,
+.dark .ProseMirror pre code .hljs-literal,
+.dark .ProseMirror pre code .hljs-variable,
+.dark .ProseMirror pre code .hljs-template-variable,
+.dark .ProseMirror pre code .hljs-tag .hljs-attr,
+.dark .code-block-wrapper pre code .hljs-number,
+.dark .code-block-wrapper pre code .hljs-literal,
+.dark .code-block-wrapper pre code .hljs-variable,
+.dark .code-block-wrapper pre code .hljs-template-variable,
+.dark .code-block-wrapper pre code .hljs-tag .hljs-attr {
+  color: #79c0ff;
+}
+
+.dark .ProseMirror pre code .hljs-string,
+.dark .ProseMirror pre code .hljs-doctag,
+.dark .code-block-wrapper pre code .hljs-string,
+.dark .code-block-wrapper pre code .hljs-doctag {
+  color: #a5d6ff;
+}
+
+.dark .ProseMirror pre code .hljs-title,
+.dark .ProseMirror pre code .hljs-section,
+.dark .ProseMirror pre code .hljs-selector-id,
+.dark .code-block-wrapper pre code .hljs-title,
+.dark .code-block-wrapper pre code .hljs-section,
+.dark .code-block-wrapper pre code .hljs-selector-id {
+  color: #d2a8ff;
+}
+
+.dark .ProseMirror pre code .hljs-type,
+.dark .ProseMirror pre code .hljs-class .hljs-title,
+.dark .code-block-wrapper pre code .hljs-type,
+.dark .code-block-wrapper pre code .hljs-class .hljs-title {
+  color: #d2a8ff;
+}
+
+.dark .ProseMirror pre code .hljs-tag,
+.dark .ProseMirror pre code .hljs-name,
+.dark .ProseMirror pre code .hljs-attribute,
+.dark .code-block-wrapper pre code .hljs-tag,
+.dark .code-block-wrapper pre code .hljs-name,
+.dark .code-block-wrapper pre code .hljs-attribute {
+  color: #7ee787;
+}
+
+.dark .ProseMirror pre code .hljs-regexp,
+.dark .ProseMirror pre code .hljs-link,
+.dark .code-block-wrapper pre code .hljs-regexp,
+.dark .code-block-wrapper pre code .hljs-link {
+  color: #a5d6ff;
+}
+
+.dark .ProseMirror pre code .hljs-symbol,
+.dark .ProseMirror pre code .hljs-bullet,
+.dark .code-block-wrapper pre code .hljs-symbol,
+.dark .code-block-wrapper pre code .hljs-bullet {
+  color: #ffa657;
+}
+
+.dark .ProseMirror pre code .hljs-built_in,
+.dark .ProseMirror pre code .hljs-builtin-name,
+.dark .code-block-wrapper pre code .hljs-built_in,
+.dark .code-block-wrapper pre code .hljs-builtin-name {
+  color: #79c0ff;
+}
+
+.dark .ProseMirror pre code .hljs-meta,
+.dark .code-block-wrapper pre code .hljs-meta {
+  color: #8b949e;
+}
+
+.dark .ProseMirror pre code .hljs-deletion,
+.dark .code-block-wrapper pre code .hljs-deletion {
+  background: #490202;
+  color: #ffdcd7;
+}
+
+.dark .ProseMirror pre code .hljs-addition,
+.dark .code-block-wrapper pre code .hljs-addition {
+  background: #033a16;
+  color: #aff5b4;
+}
+
+/* ==================== 表格 ==================== */
+.ProseMirror table {
+  border-collapse: collapse;
+  margin: 1rem 0;
+  width: 100%;
+}
+
+.ProseMirror td,
+.ProseMirror th,
+.table-cell-custom,
+.table-header-custom {
+  border: 1px solid var(--border);
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.ProseMirror th,
+.table-header-custom {
+  background-color: var(--card);
+  font-weight: 600;
+}
+
+/* ==================== 引用块 ==================== */
+.ProseMirror blockquote {
+  border-left: 3px solid var(--muted-foreground);
+  margin: 1rem 0;
+  padding-left: 1rem;
+  color: var(--muted-foreground);
+  font-style: italic;
+  transition: border-color 0.3s ease, color 0.3s ease;
+}
+
+/* ==================== 分割线 ==================== */
+.ProseMirror hr {
+  border: none;
+  border-top: 2px solid var(--border);
+  margin: 2rem 0;
+  transition: border-color 0.3s ease;
+}
+
+/* ==================== 链接 ==================== */
+.ProseMirror a,
+.link-custom {
+  color: var(--primary);
+  text-decoration: underline;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.ProseMirror a:hover,
+.link-custom:hover {
+  color: color-mix(in srgb, var(--primary) 80%, transparent);
+}
+
+/* ==================== 图片 ==================== */
+.ProseMirror img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.5rem;
+  margin: 1rem 0;
+}
+
+/* ==================== 焦点样式 ==================== */
+.ProseMirror:focus {
+  outline: none;
+}
+
+/* ==================== 选中效果 ==================== */
+.ProseMirror ::selection {
+  background-color: color-mix(in srgb, var(--primary) 25%, transparent);
+}
+
+.dark .ProseMirror ::selection {
+  background-color: color-mix(in srgb, var(--primary) 25%, transparent);
+}
+
+/* 全局文本选中样式 */
+::selection {
+  background-color: color-mix(in srgb, var(--primary) 25%, transparent);
+}
+
+::-moz-selection {
+  background-color: color-mix(in srgb, var(--primary) 25%, transparent);
+}
+
+/* ==================== 响应式设计 ==================== */
+@media (max-width: 768px) {
+  .ProseMirror {
+    padding: 1rem;
+  }
+}
+
+/* ==================== 拖拽高亮样式 ==================== */
+.drag-handle-highlight {
+  outline: 2px solid var(--primary) !important;
+  outline-offset: 2px;
+  background-color: color-mix(in srgb, var(--primary) 8%, transparent);
+  border-radius: 4px;
+  transition: all 0.15s ease-out;
+}
+
+.drag-handle-highlight-edge {
+  outline: 2px solid var(--primary) !important;
+  outline-offset: 3px;
+  background-color: color-mix(in srgb, var(--primary) 8%, transparent);
+}
+
+.drag-handle-highlight-content {
+  outline: 2px solid var(--primary) !important;
+  outline-offset: 1px;
+  background-color: color-mix(in srgb, var(--primary) 8%, transparent);
+}
+
+/* ==================== 拖拽手柄 ==================== */
+.ProseMirror .drag-handle {
+  position: absolute;
+  left: -24px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+  cursor: grab;
+  opacity: 0;
+  transition: opacity 0.2s, color 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted-foreground);
+}
+
+.ProseMirror .drag-handle:hover {
+  opacity: 1;
+  color: var(--foreground);
+}
+
+.ProseMirror .drag-handle.visible {
+  opacity: 0.6;
+}
+
+.ProseMirror .drag-handle svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* ==================== 文本颜色 ==================== */
+.ProseMirror .text-gray {
+  color: rgb(120, 119, 116);
+}
+
+.ProseMirror .text-brown {
+  color: rgb(159, 107, 83);
+}
+
+.ProseMirror .text-orange {
+  color: rgb(217, 115, 13);
+}
+
+.ProseMirror .text-yellow {
+  color: rgb(203, 145, 47);
+}
+
+.ProseMirror .text-green {
+  color: rgb(68, 131, 97);
+}
+
+.ProseMirror .text-blue {
+  color: rgb(51, 126, 169);
+}
+
+.ProseMirror .text-purple {
+  color: rgb(144, 101, 176);
+}
+
+.ProseMirror .text-pink {
+  color: rgb(193, 76, 138);
+}
+
+.ProseMirror .text-red {
+  color: rgb(212, 76, 71);
+}
+
+/* ==================== 背景颜色 ==================== */
+.ProseMirror .bg-gray {
+  background-color: rgb(241, 241, 239);
+  padding: 2px 4px;
+  border-radius: 3px;
+}
+
+.ProseMirror .bg-brown {
+  background-color: rgb(244, 238, 238);
+  padding: 2px 4px;
+  border-radius: 3px;
+}
+
+.ProseMirror .bg-orange {
+  background-color: rgb(251, 236, 221);
+  padding: 2px 4px;
+  border-radius: 3px;
+}
+
+.ProseMirror .bg-yellow {
+  background-color: rgb(251, 243, 219);
+  padding: 2px 4px;
+  border-radius: 3px;
+}
+
+.ProseMirror .bg-green {
+  background-color: rgb(237, 243, 236);
+  padding: 2px 4px;
+  border-radius: 3px;
+}
+
+.ProseMirror .bg-blue {
+  background-color: rgb(231, 243, 248);
+  padding: 2px 4px;
+  border-radius: 3px;
+}
+
+.ProseMirror .bg-purple {
+  background-color: rgb(244, 240, 247);
+  padding: 2px 4px;
+  border-radius: 3px;
+}
+
+.ProseMirror .bg-pink {
+  background-color: rgb(249, 238, 243);
+  padding: 2px 4px;
+  border-radius: 3px;
+}
+
+.ProseMirror .bg-red {
+  background-color: rgb(253, 235, 236);
+  padding: 2px 4px;
+  border-radius: 3px;
+}
+
+/* ==================== 深色主题下的文本颜色 ==================== */
+.dark .ProseMirror .text-gray {
+  color: rgb(151, 154, 155);
+}
+
+.dark .ProseMirror .text-brown {
+  color: rgb(202, 152, 130);
+}
+
+.dark .ProseMirror .text-orange {
+  color: rgb(245, 158, 70);
+}
+
+.dark .ProseMirror .text-yellow {
+  color: rgb(233, 188, 76);
+}
+
+.dark .ProseMirror .text-green {
+  color: rgb(110, 178, 140);
+}
+
+.dark .ProseMirror .text-blue {
+  color: rgb(109, 182, 223);
+}
+
+.dark .ProseMirror .text-purple {
+  color: rgb(182, 144, 209);
+}
+
+.dark .ProseMirror .text-pink {
+  color: rgb(226, 123, 181);
+}
+
+.dark .ProseMirror .text-red {
+  color: rgb(235, 119, 115);
+}
+
+/* ==================== 深色主题下的背景颜色 ==================== */
+.dark .ProseMirror .bg-gray {
+  background-color: rgb(69, 75, 78);
+}
+
+.dark .ProseMirror .bg-brown {
+  background-color: rgb(67, 64, 64);
+}
+
+.dark .ProseMirror .bg-orange {
+  background-color: rgb(89, 74, 58);
+}
+
+.dark .ProseMirror .bg-yellow {
+  background-color: rgb(89, 86, 59);
+}
+
+.dark .ProseMirror .bg-green {
+  background-color: rgb(53, 76, 75);
+}
+
+.dark .ProseMirror .bg-blue {
+  background-color: rgb(54, 73, 84);
+}
+
+.dark .ProseMirror .bg-purple {
+  background-color: rgb(68, 63, 80);
+}
+
+.dark .ProseMirror .bg-pink {
+  background-color: rgb(83, 59, 76);
+}
+
+.dark .ProseMirror .bg-red {
+  background-color: rgb(89, 65, 65);
+}

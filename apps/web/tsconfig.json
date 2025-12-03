@@ -1,0 +1,16 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "skipLibCheck": true,
+    "paths": {
+      "@/*": ["./src/*"],
+      "@nova/infrastructure/*": ["../../src/infrastructure/*"],
+      "@nova/shared": ["../../src/shared"],
+      "@nova/shared/*": ["../../src/shared/*"],
+      "@nova/domain-editor/*": ["../../src/domain-editor/*"],
+      "@nova/domain-kb/*": ["../../src/domain-kb/*"]
+    }
+  },
+  "include": ["src"]
+}

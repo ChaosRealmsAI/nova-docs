@@ -1,0 +1,316 @@
+/**
+ * Handle Menu 样式
+ * 基于 handle-menu-complete.html 复刻
+ */
+
+/* Notion 主题变量 */
+:root {
+  --notion-bg-dialog: #ffffff;
+  --notion-shadow-dialog: 0 8px 24px rgba(0, 0, 0, 0.12);
+  --notion-text-primary: rgba(55, 53, 47, 0.95);
+  --notion-text-secondary: rgba(55, 53, 47, 0.65);
+  --notion-text-tertiary: rgba(55, 53, 47, 0.45);
+  --notion-text-quaternary: rgba(55, 53, 47, 0.35);
+  --notion-separator: rgba(55, 53, 47, 0.09);
+  --notion-hover-bg: rgba(55, 53, 47, 0.08);
+}
+
+/* 暗黑模式 */
+.dark {
+  --notion-bg-dialog: #2f2f2f;
+  --notion-shadow-dialog: 0 8px 24px rgba(0, 0, 0, 0.5);
+  --notion-text-primary: rgba(255, 255, 255, 0.9);
+  --notion-text-secondary: rgba(255, 255, 255, 0.6);
+  --notion-text-tertiary: rgba(255, 255, 255, 0.4);
+  --notion-text-quaternary: rgba(255, 255, 255, 0.3);
+  --notion-separator: rgba(255, 255, 255, 0.09);
+  --notion-hover-bg: rgba(255, 255, 255, 0.08);
+}
+
+/* Notion 通用样式类 */
+.notion-bg-dialog {
+  background: var(--notion-bg-dialog);
+}
+
+.notion-shadow-dialog {
+  box-shadow: var(--notion-shadow-dialog);
+}
+
+.notion-text-primary {
+  color: var(--notion-text-primary);
+}
+
+.notion-text-secondary {
+  color: var(--notion-text-secondary);
+}
+
+.notion-text-tertiary {
+  color: var(--notion-text-tertiary);
+}
+
+.notion-text-quaternary {
+  color: var(--notion-text-quaternary);
+}
+
+.notion-separator {
+  background: var(--notion-separator);
+}
+
+.notion-menu-item {
+  transition: background-color 0.15s ease;
+}
+
+.notion-menu-item:hover {
+  background-color: var(--notion-hover-bg);
+}
+
+/* 遮罩层 */
+.handle-menu-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  background: transparent;
+}
+
+/* 修复：当菜单在 Tippy 中渲染时，覆盖 fixed 定位，避免 Tippy 尺寸计算为 0 导致位置错误 */
+.tippy-box .handle-menu-dialog {
+  position: relative !important;
+  left: auto !important;
+  top: auto !important;
+  transform: none !important;
+  /* 保持宽度 */
+  width: 265px;
+}
+
+/* 主菜单对话框 */
+.handle-menu-dialog {
+  position: fixed;
+  z-index: 1000;
+  width: 265px;
+}
+
+/* 创建透明的桥接区域，消除句柄和菜单之间的间隙 */
+/* 菜单在句柄左侧，所以桥接区域在菜单右侧 */
+/* 修复：减小桥接区域宽度，避免遮挡句柄（Handle Z-index: 2 < Menu Z-index: 1000） */
+.handle-menu-dialog::before {
+  content: '';
+  position: absolute;
+  right: -6px; /* 仅覆盖 offset 的间隙 */
+  top: 0;
+  width: 6px; /* 减小宽度，原为 16px 会遮挡句柄 */
+  height: 100%;
+  /* background: rgba(255, 0, 0, 0.1); */ /* 调试用：取消注释可查看桥接区域 */
+}
+
+/* 菜单内容 */
+.handle-menu-content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 4px;
+  background: var(--notion-bg-dialog);
+  border-radius: 10px;
+  box-shadow: var(--notion-shadow-dialog);
+  overflow: hidden;
+}
+
+/* 菜单项 */
+.handle-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 28px;
+  padding: 0 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  user-select: none;
+  font-size: 14px;
+}
+
+.handle-menu-item-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  min-height: 20px;
+  flex-shrink: 0;
+}
+
+.handle-menu-item-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.handle-menu-item-label {
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.handle-menu-item-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.handle-menu-item-arrow svg {
+  width: 16px;
+  height: 16px;
+}
+
+.handle-menu-item-shortcut {
+  margin-left: auto;
+  flex-shrink: 0;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+/* 分隔线 */
+.handle-menu-separator {
+  height: 1px;
+  margin: 4px 12px;
+}
+
+/* 子菜单 */
+.handle-submenu {
+  position: fixed;
+  z-index: 1001;
+  width: 220px;
+}
+
+/* Submenu bridge - Default (Left side) */
+.handle-submenu-left::before {
+  content: '';
+  position: absolute;
+  right: -12px;
+  top: 0;
+  width: 12px;
+  height: 100%;
+  pointer-events: auto; /* 确保 bridge 捕获鼠标事件 */
+  /* background: rgba(0, 255, 0, 0.1); */ /* Debug */
+}
+
+/* Submenu bridge - Right side */
+.handle-submenu-right::before {
+  content: '';
+  position: absolute;
+  left: -12px;
+  top: 0;
+  width: 12px;
+  height: 100%;
+  pointer-events: auto; /* 确保 bridge 捕获鼠标事件 */
+  /* background: rgba(255, 0, 0, 0.1); */ /* Debug */
+}
+
+.handle-submenu-content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px 4px;
+  background: var(--notion-bg-dialog);
+  border-radius: 10px;
+  box-shadow: var(--notion-shadow-dialog);
+  overflow: hidden;
+}
+
+/* 颜色选择器 */
+.color-picker-content {
+  padding: 8px;
+  background: var(--notion-bg-dialog);
+  border-radius: 10px;
+  box-shadow: var(--notion-shadow-dialog);
+  overflow: hidden;
+}
+
+.color-section {
+  margin-bottom: 12px;
+}
+
+.color-section:last-child {
+  margin-bottom: 0;
+}
+
+.color-section-label {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 120%;
+  padding: 0 8px;
+  margin-bottom: 8px;
+}
+
+.color-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 4px;
+  padding: 4px;
+}
+
+.color-option {
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border-color 0.15s ease, transform 0.1s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.color-option:hover {
+  border-color: rgba(55, 53, 47, 0.3);
+  transform: scale(1.1);
+}
+
+.color-option::before {
+  content: '';
+  width: 24px;
+  height: 24px;
+  border-radius: 3px;
+  background: currentColor;
+}
+
+/* Text colors */
+.color-default { color: var(--notion-text-primary, rgba(55, 53, 47, 0.95)); }
+.color-gray { color: rgba(155, 154, 151, 0.4); }
+.color-brown { color: rgba(217, 115, 13, 0.4); }
+.color-orange { color: rgba(245, 93, 0, 0.4); }
+.color-yellow { color: rgba(233, 168, 0, 0.4); }
+.color-green { color: rgba(68, 131, 97, 0.4); }
+.color-blue { color: rgba(51, 126, 169, 0.4); }
+.color-purple { color: rgba(144, 101, 176, 0.4); }
+.color-pink { color: rgba(193, 76, 138, 0.4); }
+.color-red { color: rgba(212, 76, 71, 0.4); }
+
+/* Background colors */
+.bg-default::before { background: transparent !important; border: 1px dashed rgba(55, 53, 47, 0.3); }
+.bg-gray::before { background: rgba(235, 236, 237, 1) !important; }
+.bg-brown::before { background: rgba(233, 229, 227, 1) !important; }
+.bg-orange::before { background: rgba(250, 235, 221, 1) !important; }
+.bg-yellow::before { background: rgba(251, 243, 219, 1) !important; }
+.bg-green::before { background: rgba(221, 237, 234, 1) !important; }
+.bg-blue::before { background: rgba(221, 235, 241, 1) !important; }
+.bg-purple::before { background: rgba(234, 228, 242, 1) !important; }
+.bg-pink::before { background: rgba(244, 223, 235, 1) !important; }
+.bg-red::before { background: rgba(251, 228, 228, 1) !important; }
+
+/* 暗黑模式下的背景色 - 增加对比度 */
+.dark .bg-default::before { border-color: rgba(255, 255, 255, 0.3); }
+.dark .bg-gray::before { background: rgba(155, 154, 151, 0.4) !important; }
+.dark .bg-brown::before { background: rgba(217, 115, 13, 0.3) !important; }
+.dark .bg-orange::before { background: rgba(245, 93, 0, 0.3) !important; }
+.dark .bg-yellow::before { background: rgba(233, 168, 0, 0.3) !important; }
+.dark .bg-green::before { background: rgba(68, 131, 97, 0.3) !important; }
+.dark .bg-blue::before { background: rgba(51, 126, 169, 0.3) !important; }
+.dark .bg-purple::before { background: rgba(144, 101, 176, 0.3) !important; }
+.dark .bg-pink::before { background: rgba(193, 76, 138, 0.3) !important; }
+.dark .bg-red::before { background: rgba(212, 76, 71, 0.3) !important; }
+
+/* Dark mode hover effect */
+.dark .color-option:hover {
+  border-color: rgba(255, 255, 255, 0.3);
+}

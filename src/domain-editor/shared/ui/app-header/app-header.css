@@ -1,0 +1,408 @@
+/* =================
+   CSS 变量定义
+   ================= */
+:root {
+  /* 亮色模式 */
+  --surface: #ffffff;
+  --surface-elevated: #f9fafb;
+  --border: #e5e7eb;
+  --hover: #f3f4f6;
+  --text-primary: #000000;
+  --text-secondary: #6b7280;
+  --text-tertiary: #9ca3af;
+  --primary: #FF8C42;
+  --accent: #FF8C42;
+  --accent-light: rgba(255, 140, 66, 0.1);
+  --text-brand: #FF8C42;
+}
+
+.dark {
+  /* 深色模式 */
+  --surface: #232323;
+  --surface-elevated: #2d2d2d;
+  --border: #3a3a3a;
+  --hover: #3a3a3a;
+  --text-primary: #f3f4f6;
+  --text-secondary: #d1d5db;
+  --text-tertiary: #9ca3af;
+  --primary: #FF8C42;
+  --accent: #FF8C42;
+  --accent-light: rgba(255, 140, 66, 0.15);
+  --text-brand: #FF8C42;
+}
+
+/* =================
+   顶部导航栏容器
+   ================= */
+.app-header-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  width: 100%;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.app-header {
+  height: 64px;
+  display: flex;
+  flex-shrink: 0;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.app-header-inner {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding: 0 16px;
+  width: 100%;
+}
+
+/* =================
+   左侧导航区
+   ================= */
+.left-nav {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.nav-button {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  transition: all 0.15s ease;
+  color: var(--text-secondary);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.nav-button:hover {
+  background-color: var(--accent-light);
+  color: var(--accent);
+}
+
+/* =================
+   工作区导航区（Tab）
+   ================= */
+.workspace-nav {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: 16px;
+}
+
+.workspace-tab {
+  position: relative;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  transition: all 0.15s ease;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--text-secondary);
+}
+
+.workspace-tab:hover {
+  background-color: var(--surface-elevated);
+}
+
+.workspace-tab.active {
+  background-color: var(--surface-elevated);
+  color: var(--text-primary);
+}
+
+.workspace-tab-indicator {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 24px;
+  height: 2px;
+  border-radius: 1px 1px 0 0;
+  background-color: var(--primary);
+}
+
+/* 主文档tab组 */
+.workspace-tab-group {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+.workspace-tab-left {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px 0 0 6px;
+  transition: all 0.15s ease;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--text-secondary);
+  position: relative;
+}
+
+.workspace-tab-left:hover {
+  background-color: var(--surface-elevated);
+}
+
+.workspace-tab-left.active {
+  background-color: var(--surface-elevated);
+  color: var(--text-primary);
+}
+
+.workspace-tab-dropdown {
+  position: relative;
+}
+
+.workspace-tab-dropdown-trigger {
+  width: 20px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0 6px 6px 0;
+  transition: all 0.15s ease;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--text-secondary);
+}
+
+.workspace-tab-dropdown-trigger:hover {
+  background-color: var(--surface-elevated);
+}
+
+.workspace-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  min-width: 200px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+  padding: 4px 0;
+  display: none;
+}
+
+.workspace-dropdown-menu.open {
+  display: block;
+}
+
+.workspace-dropdown-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 12px;
+  height: 32px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+  color: var(--text-primary);
+  font-size: 14px;
+}
+
+.workspace-dropdown-item:hover {
+  background-color: var(--surface-elevated);
+}
+
+.workspace-dropdown-item.selected {
+  background-color: var(--surface-elevated);
+  color: var(--accent);
+}
+
+/* =================
+   中间占位区
+   ================= */
+.spacer {
+  flex: 1;
+}
+
+/* =================
+   右侧操作区
+   ================= */
+.action-bar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.action-button {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  transition: all 0.15s ease;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--text-secondary);
+  margin-left: 0;
+}
+
+.action-button:hover {
+  background-color: var(--accent-light);
+  color: var(--accent);
+}
+
+.action-button.active {
+  color: var(--text-brand);
+}
+
+.action-button.active:hover {
+  background-color: var(--accent-light);
+  color: var(--accent);
+}
+
+.mode-dropdown {
+  position: relative;
+  margin-right: 0;
+}
+
+.undo-redo-group {
+  display: flex;
+  gap: 4px;
+}
+
+/* =================
+   下拉菜单通用样式
+   ================= */
+.dropdown-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 150px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+  padding: 4px 0;
+  display: none;
+}
+
+.dropdown-menu.open {
+  display: block;
+}
+
+.dropdown-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  height: 32px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+  color: var(--text-primary);
+  font-size: 14px;
+}
+
+.dropdown-item:hover {
+  background-color: var(--surface-elevated);
+}
+
+.dropdown-item.selected {
+  background-color: var(--surface-elevated);
+  color: var(--accent);
+}
+
+/* =================
+   Tooltip 样式 - 智能定位
+   ================= */
+[data-tooltip] {
+  position: relative;
+}
+
+[data-tooltip]:before {
+  content: attr(data-tooltip);
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 6px 10px;
+  background: var(--surface-elevated);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease-in-out;
+  font-size: 13px;
+  font-weight: 500;
+  z-index: 99999;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  max-width: 250px;
+  line-height: 1.4;
+}
+
+[data-tooltip]:hover:before {
+  opacity: 1;
+}
+
+[data-tooltip].tooltip-hidden:hover:before {
+  opacity: 0 !important;
+}
+
+/* 右侧操作区按钮 - tooltip 靠右对齐，避免超出屏幕 */
+.action-bar > .action-button[data-tooltip]:before,
+.action-bar > .mode-dropdown [data-tooltip]:before,
+.action-bar > .undo-redo-group [data-tooltip]:before {
+  left: auto;
+  right: 0;
+  transform: none;
+}
+
+/* 左侧导航按钮 - tooltip 靠左对齐 */
+.left-nav [data-tooltip]:before {
+  left: 0;
+  right: auto;
+  transform: none;
+}
+
+/* 工作区 Tab - 保持居中 */
+.workspace-nav [data-tooltip]:before {
+  left: 50%;
+  right: auto;
+  transform: translateX(-50%);
+}
+
+/* 下拉菜单内的 tooltip 位置调整 */
+.workspace-dropdown-menu {
+  z-index: 10000;
+}
+
+.dropdown-menu {
+  z-index: 10000;
+}
+
+/* SVG图标样式 */
+.app-header-container svg {
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}

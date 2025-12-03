@@ -1,0 +1,89 @@
+/**
+ * Icon Picker Styles
+ *
+ * 图标选择器样式 - 简洁的图标网格
+ */
+
+/* 主题变量 */
+.icon-picker-container {
+  --picker-bg: var(--notion-bg-dialog, #ffffff);
+  --picker-shadow: 0 2px 8px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.1);
+  --picker-hover-bg: var(--notion-hover-bg, rgba(55, 53, 47, 0.08));
+}
+
+.dark .icon-picker-container {
+  --picker-bg: var(--notion-bg-dialog, #2f2f2f);
+  --picker-shadow: 0 2px 8px rgba(0, 0, 0, 0.35), 0 0 1px rgba(0, 0, 0, 0.4);
+  --picker-hover-bg: var(--notion-hover-bg, rgba(255, 255, 255, 0.08));
+}
+
+.icon-picker-container {
+  position: absolute;
+  z-index: 1000;
+  background: var(--picker-bg);
+  border-radius: 8px;
+  box-shadow: var(--picker-shadow);
+  padding: 6px;
+}
+
+/* 图标网格 - 4x4 */
+.icon-picker-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
+}
+
+/* 图标项 */
+.icon-picker-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.12s ease;
+}
+
+.icon-picker-item:hover {
+  background: var(--picker-hover-bg);
+  transform: scale(1.1);
+}
+
+.icon-picker-item:active {
+  transform: scale(1.05);
+}
+
+/* emoji */
+.icon-picker-emoji {
+  font-size: 22px;
+  line-height: 1;
+}
+
+/* 选中状态 */
+.icon-picker-item-selected {
+  background: var(--picker-hover-bg);
+}
+
+.icon-picker-item-selected .icon-picker-emoji {
+  opacity: 0.5;
+}
+
+/* 勾选图标 */
+.icon-picker-check {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #22c55e;
+}
+
+.icon-picker-check svg {
+  width: 18px;
+  height: 18px;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
+}

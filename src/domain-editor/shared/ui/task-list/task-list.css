@@ -1,0 +1,90 @@
+/**
+ * 任务列表样式
+ * 与有序列表、无序列表风格保持一致
+ */
+
+/* 任务列表容器 */
+ul[data-type="taskList"],
+.task-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 0.5em 0;
+}
+
+/* 任务列表项 */
+li[data-type="taskItem"],
+.task-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin: 4px 0;
+  padding: 2px 0;
+}
+
+/* 复选框样式 */
+li[data-type="taskItem"] > label,
+.task-item > label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  margin-top: 3px;
+  cursor: pointer;
+}
+
+li[data-type="taskItem"] > label input[type="checkbox"],
+.task-item > label input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  cursor: pointer;
+  accent-color: var(--color-primary, #3370ff);
+  border-radius: 3px;
+}
+
+/* 任务内容 */
+li[data-type="taskItem"] > div,
+.task-item > div {
+  flex: 1;
+  min-width: 0;
+}
+
+li[data-type="taskItem"] > div p,
+.task-item > div p {
+  margin: 0;
+}
+
+/* 已完成任务的样式 */
+li[data-type="taskItem"][data-checked="true"] > div,
+.task-item[data-checked="true"] > div {
+  text-decoration: line-through;
+  color: var(--text-secondary, #646a73);
+  opacity: 0.7;
+}
+
+/* 嵌套任务列表 */
+li[data-type="taskItem"] ul[data-type="taskList"],
+.task-item .task-list {
+  margin-top: 4px;
+  margin-left: 26px;
+}
+
+/* 任务项 hover 效果 */
+li[data-type="taskItem"]:hover,
+.task-item:hover {
+  background-color: var(--bg-hover, rgba(0, 0, 0, 0.02));
+  border-radius: 4px;
+}
+
+/* 暗色主题支持 */
+.dark li[data-type="taskItem"][data-checked="true"] > div,
+.dark .task-item[data-checked="true"] > div {
+  color: var(--text-secondary, #8f959e);
+}
+
+.dark li[data-type="taskItem"]:hover,
+.dark .task-item:hover {
+  background-color: var(--bg-hover, rgba(255, 255, 255, 0.05));
+}

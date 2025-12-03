@@ -1,0 +1,138 @@
+{
+  "globalLevel": "debug",
+  "format": {
+    "pathStyle": "short",
+    "showColumn": false
+  },
+  "features": {
+    "feature-logger-test": {
+      "enabled": false,
+      "level": "debug",
+      "showLocation": true,
+      "description": "日志测试功能 - 用于测试日志开关",
+      "module": "infrastructure"
+    },
+    "feature-app-init": {
+      "enabled": true,
+      "level": "debug",
+      "showLocation": true,
+      "description": "应用初始化",
+      "module": "apps"
+    },
+    "feature-theme": {
+      "enabled": false,
+      "level": "info",
+      "showLocation": true,
+      "description": "主题系统",
+      "module": "infrastructure"
+    },
+    "feature-editor-init": {
+      "enabled": false,
+      "level": "debug",
+      "showLocation": true,
+      "description": "编辑器初始化",
+      "module": "domain-editor"
+    },
+    "feature-markdown-input": {
+      "enabled": false,
+      "level": "debug",
+      "showLocation": true,
+      "description": "Markdown输入规则",
+      "module": "domain-editor"
+    },
+    "feature-multi-column": {
+      "enabled": false,
+      "level": "debug",
+      "showLocation": true,
+      "description": "多列容器",
+      "module": "domain-editor"
+    },
+    "feature-code-block": {
+      "enabled": false,
+      "level": "debug",
+      "showLocation": true,
+      "description": "代码块高亮",
+      "module": "domain-editor"
+    },
+    "feature-drag-handle": {
+      "enabled": false,
+      "level": "debug",
+      "showLocation": true,
+      "description": "拖拽手柄",
+      "module": "domain-editor"
+    },
+    "feature-handle-display": {
+      "enabled": false,
+      "level": "debug",
+      "showLocation": true,
+      "description": "Handle Display - 句柄展示功能（Hover检测与渲染）",
+      "module": "domain-editor"
+    },
+    "feature-drag-guideline": {
+      "enabled": false,
+      "level": "debug",
+      "showLocation": true,
+      "description": "拖拽辅助引导线",
+      "module": "domain-editor"
+    },
+    "feat-heading-structure": {
+      "enabled": false,
+      "level": "debug",
+      "showLocation": true,
+      "description": "标题结构系统",
+      "module": "domain-editor"
+    },
+    "numbering-plugin": {
+      "enabled": false,
+      "level": "debug",
+      "showLocation": true,
+      "description": "编号插件",
+      "module": "domain-editor"
+    },
+    "fold-calculator": {
+      "enabled": false,
+      "level": "debug",
+      "showLocation": true,
+      "description": "折叠范围计算器",
+      "module": "domain-editor"
+    },
+    "fold-button": {
+      "enabled": false,
+      "level": "debug",
+      "showLocation": true,
+      "description": "折叠按钮",
+      "module": "domain-editor"
+    },
+    "heading-extension": {
+      "enabled": false,
+      "level": "debug",
+      "showLocation": true,
+      "description": "Heading 扩展",
+      "module": "domain-editor"
+    },
+    "heading-id-manager": {
+      "enabled": false,
+      "level": "debug",
+      "showLocation": true,
+      "description": "Heading ID 管理",
+      "module": "domain-editor"
+    },
+    "heading-shortcut": {
+      "enabled": false,
+      "level": "debug",
+      "showLocation": true,
+      "description": "Heading 快捷键",
+      "module": "domain-editor"
+    },
+    "feature-ui-button": {
+      "enabled": false,
+      "level": "info",
+      "showLocation": false,
+      "description": "UI按钮组件",
+      "module": "shared"
+    }
+  },
+  "testMode": {
+    "forceEnable": false
+  }
+}

@@ -1,0 +1,35 @@
+/**
+ * EmojiPicker 样式
+ * 深色主题定制，适配 syllo 设计风格
+ */
+
+.emoji-picker-wrapper {
+  display: inline-block;
+}
+
+/* emoji-picker-element 深色主题定制 */
+emoji-picker {
+  width: 400px;
+  height: 450px;
+
+  /* 主要颜色 */
+  --background: rgb(41, 41, 41);
+  --border-color: rgb(95, 95, 95);
+  --indicator-color: rgb(76, 136, 255);
+
+  /* 输入框 */
+  --input-border-color: rgb(80, 80, 80);
+  --input-font-color: rgb(240, 240, 240);
+  --input-placeholder-color: rgb(117, 117, 117);
+
+  /* 交互 */
+  --outline-color: rgb(76, 136, 255);
+  --button-active-background: rgba(235, 235, 235, 0.08);
+  --button-hover-background: rgba(235, 235, 235, 0.08);
+
+  /* 分类 */
+  --category-font-color: rgb(166, 166, 166);
+
+  /* 其他 */
+  --skintone-border-radius: 4px;
+}

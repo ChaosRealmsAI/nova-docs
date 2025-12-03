@@ -1,0 +1,197 @@
+/**
+ * Empty Node Menu 样式
+ * 基于 empty-node-menu.html 复刻
+ */
+
+/* Notion 主题变量 */
+:root {
+  --notion-bg-dialog: #ffffff;
+  --notion-shadow-dialog: 0 8px 24px rgba(0, 0, 0, 0.12);
+  --notion-text-primary: rgba(55, 53, 47, 0.95);
+  --notion-text-secondary: rgba(55, 53, 47, 0.65);
+  --notion-text-tertiary: rgba(55, 53, 47, 0.45);
+  --notion-separator: rgba(55, 53, 47, 0.09);
+  --notion-hover-bg: rgba(55, 53, 47, 0.08);
+}
+
+/* 暗黑模式 */
+.dark {
+  --notion-bg-dialog: #2f2f2f;
+  --notion-shadow-dialog: 0 8px 24px rgba(0, 0, 0, 0.5);
+  --notion-text-primary: rgba(255, 255, 255, 0.9);
+  --notion-text-secondary: rgba(255, 255, 255, 0.6);
+  --notion-text-tertiary: rgba(255, 255, 255, 0.4);
+  --notion-separator: rgba(255, 255, 255, 0.09);
+  --notion-hover-bg: rgba(255, 255, 255, 0.08);
+}
+
+/* Notion 通用样式类 */
+.notion-bg-dialog {
+  background: var(--notion-bg-dialog);
+}
+
+.notion-shadow-dialog {
+  box-shadow: var(--notion-shadow-dialog);
+}
+
+.notion-text-primary {
+  color: var(--notion-text-primary);
+}
+
+.notion-text-secondary {
+  color: var(--notion-text-secondary);
+}
+
+.notion-text-tertiary {
+  color: var(--notion-text-tertiary);
+}
+
+.notion-separator {
+  background: var(--notion-separator);
+}
+
+.notion-menu-item {
+  transition: background-color 0.15s ease;
+}
+
+.notion-menu-item:hover {
+  background-color: var(--notion-hover-bg);
+}
+
+/* 菜单对话框 - 由 tippy.js 控制位置 */
+.empty-node-menu-dialog {
+  border-radius: 10px;
+  width: 265px;
+  overflow: hidden;
+}
+
+/* 菜单内容 */
+.empty-node-menu-content {
+  display: flex;
+  flex-direction: column;
+  width: 265px;
+  min-width: 180px;
+  max-height: 70vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* 菜单内容滚动条 */
+.empty-node-menu-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.empty-node-menu-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.empty-node-menu-content::-webkit-scrollbar-thumb {
+  background-color: rgba(55, 53, 47, 0.16);
+  border-radius: 3px;
+}
+
+.dark .empty-node-menu-content::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.16);
+}
+
+/* 通用 Section */
+.empty-node-menu-section {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 4px;
+}
+
+/* 基础块 Section */
+.basic-section {
+  padding-top: 12px;
+  padding-bottom: 8px;
+}
+
+/* 基础块网格 (6列) */
+.basic-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0;
+  padding: 0 4px;
+  margin-bottom: 0;
+}
+
+.basic-grid-item {
+  width: 24px;
+  height: 24px;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  cursor: pointer;
+  color: var(--notion-text-secondary, rgba(55, 53, 47, 0.65));
+  transition: background-color 0.15s ease;
+}
+
+.basic-grid-item:hover {
+  background-color: var(--notion-hover-bg, rgba(55, 53, 47, 0.08));
+}
+
+.basic-grid-item svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* 分隔线 */
+.empty-node-menu-separator-wrapper {
+  position: relative;
+  margin-top: 1px;
+}
+
+.empty-node-menu-separator {
+  position: absolute;
+  top: -1px;
+  left: 12px;
+  right: 12px;
+  height: 1px;
+}
+
+/* 常用块 Section */
+.common-section {
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
+/* 常用块列表项 */
+.common-list-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 28px;
+  padding: 0 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  user-select: none;
+  font-size: 14px;
+  width: 100%;
+}
+
+.common-list-item-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  min-height: 20px;
+  flex-shrink: 0;
+}
+
+.common-list-item-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.common-list-item-label {
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
