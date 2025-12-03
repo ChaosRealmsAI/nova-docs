@@ -6,29 +6,55 @@ import { loggers } from '@nova/infrastructure/logger'
 
 export const numberingPluginKey = new PluginKey('heading-numbering')
 
+// 根据 heading 级别获取 placeholder 文字
+function getPlaceholderText(level: number): string {
+  const placeholders: Record<number, string> = {
+    1: '标题 1',
+    2: '标题 2',
+    3: '标题 3',
+    4: '标题 4',
+    5: '标题 5',
+    6: '标题 6',
+  }
+  return placeholders[level] || '标题'
+}
+
 function createDecorations(doc: Node): DecorationSet {
   const decorations: Decoration[] = []
-  
+
   doc.descendants((node, pos) => {
     if (node.type.name === 'heading' && node.attrs.numbered && node.attrs.manualNumber) {
       const number = node.attrs.manualNumber
+      const isEmpty = node.content.size === 0
+      const level = node.attrs.level || 1
+
       decorations.push(
         Decoration.widget(
           pos + 1,
           () => {
-            const button = document.createElement('button')
-            button.className = 'numbered-heading-number'
-            button.textContent = number // 直接显示 manualNumber，不加点（因为输入时已经有点了）
-            button.contentEditable = 'false'
-            button.tabIndex = -1
-            button.setAttribute('aria-hidden', 'true')
-            button.setAttribute('data-heading-number', number)
-            button.setAttribute('type', 'button')
-            button.addEventListener('mousedown', event => event.preventDefault())
-            button.addEventListener('click', event => event.preventDefault())
-            return button
+            // 创建容器
+            const container = document.createElement('span')
+            container.className = 'numbered-heading-number'
+            container.contentEditable = 'false'
+            container.setAttribute('aria-hidden', 'true')
+            container.setAttribute('data-heading-number', number)
+
+            // 序号文字
+            container.textContent = number
+
+            // 如果 heading 为空，添加 placeholder
+            if (isEmpty) {
+              const placeholder = document.createElement('span')
+              placeholder.className = 'numbered-heading-placeholder'
+              placeholder.textContent = getPlaceholderText(level)
+              container.appendChild(placeholder)
+            }
+
+            container.addEventListener('mousedown', event => event.preventDefault())
+            container.addEventListener('click', event => event.preventDefault())
+            return container
           },
-          { side: -1, key: `heading-number-${pos}` }
+          { side: -1, key: `heading-number-${pos}-${isEmpty}` }
         )
       )
     }

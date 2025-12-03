@@ -109,15 +109,22 @@
   margin-left: 0 !important;
 }
 
-/* 修复编号标题占位符重叠问题 - 用 margin 把 placeholder 推到序号后面 */
+/* 有编号的 heading 隐藏默认 placeholder，由 NumberingPlugin 统一渲染 */
 .ProseMirror h1[data-numbered="true"].is-empty::before,
 .ProseMirror h2[data-numbered="true"].is-empty::before,
 .ProseMirror h3[data-numbered="true"].is-empty::before,
 .ProseMirror h4[data-numbered="true"].is-empty::before,
 .ProseMirror h5[data-numbered="true"].is-empty::before,
 .ProseMirror h6[data-numbered="true"].is-empty::before {
-  /* 序号宽度(36px) + margin-right(6px) = 42px */
-  margin-left: calc(var(--numbered-heading-number-width) + 6px);
+  display: none !important;
+}
+
+/* 序号后的 placeholder 样式 */
+.numbered-heading-placeholder {
+  color: var(--muted-foreground, #94a3b8);
+  opacity: 0.6;
+  pointer-events: none;
+  font-weight: normal;
 }
 
 /* 所有编号标题统一左对齐，不根据 indent 缩进 */

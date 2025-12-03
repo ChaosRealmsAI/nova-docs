@@ -27,9 +27,9 @@
   align-items: center;
   gap: 2px;
   padding: 4px;
-  background: #1f1f1f;
+  background: var(--notion-bg-dialog, #fff);
   border-radius: 8px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.1);
+  box-shadow: var(--notion-shadow-dialog, 0 8px 24px rgba(0, 0, 0, 0.12));
 }
 
 /* 按钮组 */
@@ -43,7 +43,7 @@
 .selection-toolbar-divider {
   width: 1px;
   height: 24px;
-  background: rgba(255, 255, 255, 0.15);
+  background: var(--notion-separator, rgba(55, 53, 47, 0.09));
   margin: 0 4px;
 }
 
@@ -58,18 +58,18 @@
   background: transparent;
   border-radius: 4px;
   cursor: pointer;
-  color: rgba(255, 255, 255, 0.8);
+  color: var(--notion-text-secondary, rgba(55, 53, 47, 0.65));
   transition: all 0.1s ease;
 }
 
 .selection-toolbar-btn:hover {
-  background: rgba(255, 255, 255, 0.1);
-  color: #fff;
+  background: var(--notion-hover-bg, rgba(55, 53, 47, 0.08));
+  color: var(--notion-text-primary, rgba(55, 53, 47, 0.95));
 }
 
 .selection-toolbar-btn.active {
-  background: rgba(255, 255, 255, 0.15);
-  color: #fff;
+  background: var(--notion-hover-bg, rgba(55, 53, 47, 0.08));
+  color: var(--notion-text-primary, rgba(55, 53, 47, 0.95));
 }
 
 .selection-toolbar-btn svg {
@@ -104,7 +104,7 @@
   transform: translateX(-50%);
   border-left: 6px solid transparent;
   border-right: 6px solid transparent;
-  border-top: 6px solid #1f1f1f;
+  border-top: 6px solid var(--notion-bg-dialog, #fff);
 }
 
 /* 颜色选择器 - 与 handle-menu 保持一致 */

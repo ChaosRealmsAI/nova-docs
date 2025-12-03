@@ -43,6 +43,12 @@ export interface HandleMenuProps {
 
   /** 鼠标离开菜单区域 */
   onMouseLeave?: () => void
+
+  /** 子菜单激活时调用（保持父菜单打开）*/
+  onSubmenuKeepAlive?: () => void
+
+  /** 子菜单关闭时调用 */
+  onSubmenuClose?: () => void
 }
 
 const TURN_INTO_OPTIONS: { type: string; labelKey: MessageKey; icon: React.FC }[] = [
@@ -92,7 +98,9 @@ export const HandleMenu: React.FC<HandleMenuProps> = ({
   onDuplicate,
   onDelete,
   onMouseEnter,
-  onMouseLeave
+  onMouseLeave,
+  onSubmenuKeepAlive,
+  onSubmenuClose
 }) => {
   const { t } = useI18n()
   const [showTurnIntoSubmenu, setShowTurnIntoSubmenu] = useState(false)
@@ -179,11 +187,12 @@ export const HandleMenu: React.FC<HandleMenuProps> = ({
 
   const handleTurnIntoSubmenuMouseEnter = () => {
     onMouseEnter?.()
+    onSubmenuKeepAlive?.()  // 通知父层：子菜单激活
   }
 
   const handleTurnIntoSubmenuMouseLeave = () => {
     setShowTurnIntoSubmenu(false)
-    onMouseLeave?.()
+    onSubmenuClose?.()  // 通知父层：子菜单关闭
   }
 
   // Color 菜单项 hover（简化版：无延迟）
@@ -219,11 +228,12 @@ export const HandleMenu: React.FC<HandleMenuProps> = ({
 
   const handleColorSubmenuMouseEnter = () => {
     onMouseEnter?.()
+    onSubmenuKeepAlive?.()  // 通知父层：子菜单激活
   }
 
   const handleColorSubmenuMouseLeave = () => {
     setShowColorSubmenu(false)
-    onMouseLeave?.()
+    onSubmenuClose?.()  // 通知父层：子菜单关闭
   }
 
   // 主菜单的 hover 事件

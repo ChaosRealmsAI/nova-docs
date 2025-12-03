@@ -4,6 +4,7 @@ import tailwindcss from '@tailwindcss/vite'
 import { resolve } from 'path'
 
 export default defineConfig({
+  base: '/nova-docs/',  // GitHub Pages 路径
   plugins: [
     react(),
     tailwindcss(),

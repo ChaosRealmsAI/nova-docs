@@ -67,9 +67,10 @@ export class HandleView {
     isEmptyNode: false
   }
 
-  // 菜单 hover 控制（简化版：无延迟计时器）
+  // 菜单 hover 控制（三级状态追踪）
   private isMouseOverHandle = false
   private isMouseOverMenu = false
+  private submenuActive = false  // 子菜单激活状态
 
   constructor(view: EditorView, options: HandleDisplayOptions = {}) {
     loggers.handleDisplay.info('🏗️ HandleView 构造函数被调用', { options })
@@ -349,10 +350,10 @@ export class HandleView {
   }
 
   /**
-   * 判断是否应该显示菜单（简化版）
+   * 判断是否应该显示菜单（三级状态：句柄 | 菜单 | 子菜单）
    */
   private shouldShowMenu(): boolean {
-    return this.isMouseOverHandle || this.isMouseOverMenu
+    return this.isMouseOverHandle || this.isMouseOverMenu || this.submenuActive
   }
 
   /**
@@ -365,6 +366,25 @@ export class HandleView {
         this.tippyInstance.hide()
       }
     })
+  }
+
+  /**
+   * 子菜单激活回调（保持菜单打开）
+   */
+  private handleSubmenuKeepAlive = () => {
+    this.submenuActive = true
+    // 保持句柄和高亮的显示
+    if (this.menuState.nodeId) {
+      this.highlightManager.showHandleByNodeId(this.menuState.nodeId)
+    }
+  }
+
+  /**
+   * 子菜单关闭回调
+   */
+  private handleSubmenuClose = () => {
+    this.submenuActive = false
+    this.tryHideMenu()
   }
 
   /**
@@ -749,7 +769,10 @@ export class HandleView {
             onDuplicate: () => this.handleDuplicate(),
             onDelete: () => this.handleDelete(),
             onMouseEnter: this.handleMenuMouseEnter,
-            onMouseLeave: this.handleMenuMouseLeave
+            onMouseLeave: this.handleMenuMouseLeave,
+            // 子菜单状态回调
+            onSubmenuKeepAlive: this.handleSubmenuKeepAlive,
+            onSubmenuClose: this.handleSubmenuClose
           })
         )
       )
@@ -762,6 +785,9 @@ export class HandleView {
    */
   private renderMenuClosed() {
     if (!this.menuRoot) return
+
+    // 重置子菜单状态
+    this.submenuActive = false
 
     this.menuRoot.render(
       createElement(
@@ -776,7 +802,9 @@ export class HandleView {
           onDuplicate: () => this.handleDuplicate(),
           onDelete: () => this.handleDelete(),
           onMouseEnter: this.handleMenuMouseEnter,
-          onMouseLeave: this.handleMenuMouseLeave
+          onMouseLeave: this.handleMenuMouseLeave,
+          onSubmenuKeepAlive: this.handleSubmenuKeepAlive,
+          onSubmenuClose: this.handleSubmenuClose
         })
       )
     )
