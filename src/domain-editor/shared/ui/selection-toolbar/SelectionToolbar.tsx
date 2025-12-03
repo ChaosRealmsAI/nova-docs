@@ -296,8 +296,9 @@ function UnderlineIcon() {
 
 function StrikeIcon() {
   return (
-    <svg viewBox="0 0 24 24" fill="currentColor">
-      <path d="M10 19h4v-3h-4v3zM5 4v3h5v3h4V7h5V4H5zM3 14h18v-2H3v2z"/>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M16 4H9a4 4 0 0 0 0 8h6a4 4 0 0 1 0 8H8"/>
+      <line x1="4" y1="12" x2="20" y2="12"/>
     </svg>
   )
 }

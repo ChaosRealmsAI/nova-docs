@@ -349,10 +349,10 @@ export class HandleView {
   }
 
   /**
-   * 判断是否应该显示菜单（三级状态：句柄 | 菜单 | 子菜单）
+   * 判断是否应该显示菜单
    */
   private shouldShowMenu(): boolean {
-    return this.isMouseOverHandle || this.isMouseOverMenu || this.submenuActive
+    return this.isMouseOverHandle || this.isMouseOverMenu
   }
 
   /**
@@ -365,25 +365,6 @@ export class HandleView {
         this.tippyInstance.hide()
       }
     })
-  }
-
-  /**
-   * 子菜单激活回调（保持菜单打开）
-   */
-  private handleSubmenuKeepAlive = () => {
-    this.submenuActive = true
-    // 保持句柄和高亮的显示
-    if (this.menuState.nodeId) {
-      this.highlightManager.showHandleByNodeId(this.menuState.nodeId)
-    }
-  }
-
-  /**
-   * 子菜单关闭回调
-   */
-  private handleSubmenuClose = () => {
-    this.submenuActive = false
-    this.tryHideMenu()
   }
 
   /**
@@ -763,15 +744,10 @@ export class HandleView {
             open: true,  // tippy 控制显示/隐藏，这里总是 true
             position: { x: 0, y: 0 },  // tippy 控制位置
             onClose: () => this.hideMenu(),
-            onTurnInto: (type: string) => this.handleTurnInto(type),
-            onColorChange: (color: string, isBackground: boolean) => this.handleColorChange(color, isBackground),
             onDuplicate: () => this.handleDuplicate(),
             onDelete: () => this.handleDelete(),
             onMouseEnter: this.handleMenuMouseEnter,
-            onMouseLeave: this.handleMenuMouseLeave,
-            // 子菜单状态回调
-            onSubmenuKeepAlive: this.handleSubmenuKeepAlive,
-            onSubmenuClose: this.handleSubmenuClose
+            onMouseLeave: this.handleMenuMouseLeave
           })
         )
       )
@@ -779,31 +755,23 @@ export class HandleView {
   }
 
   /**
-   * 渲染关闭状态的菜单（用于关闭子菜单）
-   * 当 tippy 隐藏时调用，确保 portal 渲染的子菜单也被正确关闭
+   * 渲染关闭状态的菜单
    */
   private renderMenuClosed() {
     if (!this.menuRoot) return
-
-    // 重置子菜单状态
-    this.submenuActive = false
 
     this.menuRoot.render(
       createElement(
         I18nProvider,
         null,
         createElement(HandleMenu, {
-          open: false,  // 关闭菜单，子菜单也会被关闭
+          open: false,
           position: { x: 0, y: 0 },
           onClose: () => this.hideMenu(),
-          onTurnInto: (type: string) => this.handleTurnInto(type),
-          onColorChange: (color: string, isBackground: boolean) => this.handleColorChange(color, isBackground),
           onDuplicate: () => this.handleDuplicate(),
           onDelete: () => this.handleDelete(),
           onMouseEnter: this.handleMenuMouseEnter,
-          onMouseLeave: this.handleMenuMouseLeave,
-          onSubmenuKeepAlive: this.handleSubmenuKeepAlive,
-          onSubmenuClose: this.handleSubmenuClose
+          onMouseLeave: this.handleMenuMouseLeave
         })
       )
     )
@@ -833,28 +801,6 @@ export class HandleView {
     if (nodePos === null) return
 
     this.nodeOperations.handleEmptyNodeSelect(nodePos, type)
-    this.hideMenu()
-  }
-
-  /**
-   * 处理 Turn Into
-   */
-  private handleTurnInto(type: string) {
-    const { nodePos } = this.menuState
-    if (nodePos === null) return
-
-    this.nodeOperations.turnInto(nodePos, type)
-    this.hideMenu()
-  }
-
-  /**
-   * 处理颜色变更
-   */
-  private handleColorChange(color: string, isBackground: boolean) {
-    const { nodePos } = this.menuState
-    if (nodePos === null) return
-
-    this.nodeOperations.changeColor(nodePos, color, isBackground)
     this.hideMenu()
   }
 
