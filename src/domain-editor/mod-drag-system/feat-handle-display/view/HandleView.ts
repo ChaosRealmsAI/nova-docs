@@ -512,27 +512,50 @@ export class HandleView {
 
     this.currentMenuHandle = handle
 
+    // 根据句柄位置计算最佳菜单位置
+    const handleRect = handle.getBoundingClientRect()
+    const menuWidth = 160  // 菜单大概宽度
+    const menuHeight = 80  // 菜单大概高度
+
+    // 计算各方向可用空间
+    const spaceLeft = handleRect.left
+    const spaceRight = window.innerWidth - handleRect.right
+    const spaceTop = handleRect.top
+    const spaceBottom = window.innerHeight - handleRect.bottom
+
+    // 智能选择位置：优先左侧，空间不足时选择其他方向
+    let placement: 'left-start' | 'right-start' | 'bottom-start' | 'top-start' = 'left-start'
+
+    if (spaceLeft >= menuWidth) {
+      placement = 'left-start'
+    } else if (spaceRight >= menuWidth) {
+      placement = 'right-start'
+    } else if (spaceBottom >= menuHeight) {
+      placement = 'bottom-start'
+    } else if (spaceTop >= menuHeight) {
+      placement = 'top-start'
+    }
+
     // 创建新的 tippy 实例
-    // 位置优先级：左侧 > 下方 > 上方 > 右侧
     this.tippyInstance = tippy(handle, {
       content: this.menuContainer,
-      interactive: true,           // 关键！允许鼠标在菜单上交互
-      interactiveBorder: 20,       // 关键！菜单周围 20px 的透明交互区域，解决间隙问题
+      interactive: true,           // 允许鼠标在菜单上交互
+      interactiveBorder: 20,       // 菜单周围 20px 的透明交互区域
       trigger: 'manual',           // 手动控制
-      placement: 'left-start',     // 默认：菜单在句柄左侧
+      placement,                   // 智能计算的位置
       arrow: false,
       offset: [0, 4],              // 紧贴句柄，留 4px 间隙
       zIndex: 1000,
       appendTo: () => document.body,
       animation: 'shift-away',
-      duration: [150, 100],        // 更快的动画
-      // 配置位置回退顺序：左 → 下 → 上 → 右
+      duration: [150, 100],
+      // 配置位置回退和边界检测
       popperOptions: {
         modifiers: [
           {
             name: 'flip',
             options: {
-              fallbackPlacements: ['bottom-start', 'top-start', 'right-start'],
+              fallbackPlacements: ['left-start', 'right-start', 'bottom-start', 'top-start'],
             },
           },
           {
