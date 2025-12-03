@@ -67,10 +67,9 @@ export class HandleView {
     isEmptyNode: false
   }
 
-  // 菜单 hover 控制（三级状态追踪）
+  // 菜单 hover 控制（简化版：无子菜单）
   private isMouseOverHandle = false
   private isMouseOverMenu = false
-  private submenuActive = false  // 子菜单激活状态
 
   constructor(view: EditorView, options: HandleDisplayOptions = {}) {
     loggers.handleDisplay.info('🏗️ HandleView 构造函数被调用', { options })
