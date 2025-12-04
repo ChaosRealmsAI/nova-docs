@@ -22,7 +22,7 @@ export const SUPPORTED_LOCALES = [
 
 export type Locale = (typeof SUPPORTED_LOCALES)[number]
 
-export const DEFAULT_LOCALE: Locale = 'zh-Hans'
+export const DEFAULT_LOCALE: Locale = 'en'
 
 export type MessageModule = Record<string, Record<Locale, string>>
 
