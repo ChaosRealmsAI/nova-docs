@@ -26,21 +26,20 @@ export class VerticalDropExecutor {
     getState: () => VerticalGuidelineState | undefined,
   ): boolean {
     const state = getState()
-    console.log('[VerticalDropExecutor] executing with state:', state)
+    loggers.dragGuideline.debug('[VerticalDropExecutor] executing with state:', state)
 
     // 支持两种模式：editor-border 和 columns-edge
     if (!state || !state.isVisible) {
-      console.log('[VerticalDropExecutor] Failed: state empty or not visible')
+      loggers.dragGuideline.debug('[VerticalDropExecutor] Failed: state empty or not visible')
       return false
     }
 
     if (state.mode !== 'editor-border' && state.mode !== 'columns-edge') {
-      console.log('[VerticalDropExecutor] Failed: mode mismatch', state.mode)
+      loggers.dragGuideline.debug('[VerticalDropExecutor] Failed: mode mismatch', state.mode)
       return false
     }
 
     if (!view.dragging) {
-      console.log('[VerticalDropExecutor] Failed: view.dragging is null')
       loggers.dragGuideline.debug('[VerticalDropExecutor] skip: no dragging data on view')
       return false
     }

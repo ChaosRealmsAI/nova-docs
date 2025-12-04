@@ -113,7 +113,7 @@ export function createVerticalGuidelinePlugin(
       editorDragoverHandler = (event: DragEvent) => {
         if (!calculator) return
         const nextState = calculator.calculateForEditorDragover(editorView, event)
-        console.log('[VerticalPlugin] Editor dragover state:', nextState)
+        loggers.dragGuideline.debug('[VerticalPlugin] Editor dragover state:', nextState)
         const currentState = VERTICAL_DRAG_GUIDELINE_PLUGIN_KEY.getState(editorView.state)
 
         if (isSameState(currentState, nextState)) {
@@ -174,14 +174,14 @@ export function createVerticalGuidelinePlugin(
           return
         }
 
-        console.log('[VerticalPlugin] Global DROP event', {
+        loggers.dragGuideline.debug('[VerticalPlugin] Global DROP event', {
           clientX: event.clientX,
           clientY: event.clientY,
           hasDragging: !!editorView.dragging,
         })
 
         if (!editorView.dragging) {
-          console.log('[VerticalPlugin] Drop skipped: No dragging data')
+          loggers.dragGuideline.debug('[VerticalPlugin] Drop skipped: No dragging data')
           const trSkip = editorView.state.tr.setMeta(
             VERTICAL_DRAG_GUIDELINE_PLUGIN_KEY,
             INITIAL_VERTICAL_GUIDELINE_STATE,
@@ -194,7 +194,7 @@ export function createVerticalGuidelinePlugin(
         const handled = executor.execute(editorView, event, () =>
           VERTICAL_DRAG_GUIDELINE_PLUGIN_KEY.getState(editorView.state),
         )
-        console.log('[VerticalPlugin] Drop handled by executor?', handled)
+        loggers.dragGuideline.debug('[VerticalPlugin] Drop handled by executor?', handled)
 
         // 清除竖线状态
         const tr = editorView.state.tr.setMeta(

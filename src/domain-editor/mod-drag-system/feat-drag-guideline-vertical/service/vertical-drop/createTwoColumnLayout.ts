@@ -26,7 +26,6 @@ export function createTwoColumnLayoutAt(
 ): boolean {
   const { state, dragging } = view
 
-  console.log('[createTwoColumnLayoutAt] START', { targetPos, side, insertAfterIndex, hasDragging: !!dragging })
   loggers.dragGuideline.debug('[createTwoColumnLayoutAt] START', {
     targetPos,
     side,
@@ -34,7 +33,7 @@ export function createTwoColumnLayoutAt(
   })
 
   if (!dragging || dragging.from === undefined || dragging.to === undefined || !dragging.slice) {
-    console.log('[createTwoColumnLayoutAt] skip: invalid dragging data')
+    loggers.dragGuideline.debug('[createTwoColumnLayoutAt] skip: invalid dragging data')
     loggers.dragGuideline.debug('[createTwoColumnLayoutAt] skip: invalid dragging data', {
       hasDragging: !!dragging,
     })
@@ -44,7 +43,7 @@ export function createTwoColumnLayoutAt(
   // 解析为块级节点（兼容 text 节点等情况）
   const resolved = resolveBlockAtPos(state.doc, targetPos)
   if (!resolved) {
-    console.log('[createTwoColumnLayoutAt] skip: could not resolve block node')
+    loggers.dragGuideline.debug('[createTwoColumnLayoutAt] skip: could not resolve block node')
     loggers.dragGuideline.debug('[createTwoColumnLayoutAt] skip: could not resolve block node', {
       targetPos,
     })
@@ -54,7 +53,7 @@ export function createTwoColumnLayoutAt(
   let { pos, node: targetNode } = resolved
   const $target = state.doc.resolve(pos)
 
-  console.log('[createTwoColumnLayoutAt] Resolved target', { pos, nodeType: targetNode.type.name })
+  loggers.dragGuideline.debug('[createTwoColumnLayoutAt] Resolved target', { pos, nodeType: targetNode.type.name })
   loggers.dragGuideline.debug('[createTwoColumnLayoutAt] Resolved target', {
     pos,
     nodeType: targetNode.type.name,
@@ -62,7 +61,7 @@ export function createTwoColumnLayoutAt(
   })
 
   if (!targetNode || !targetNode.isBlock) {
-    console.log('[createTwoColumnLayoutAt] skip: target node is not a block')
+    loggers.dragGuideline.debug('[createTwoColumnLayoutAt] skip: target node is not a block')
     loggers.dragGuideline.debug('[createTwoColumnLayoutAt] skip: target node is not a block', {
       pos,
       nodeType: targetNode?.type.name,
@@ -72,7 +71,7 @@ export function createTwoColumnLayoutAt(
 
   // 🔥 关键修复：先检查目标节点本身是否是 columns
   if (targetNode.type.name === COLUMNS_NODE_NAME) {
-    console.log('[createTwoColumnLayoutAt] Target IS a COLUMNS node')
+    loggers.dragGuideline.debug('[createTwoColumnLayoutAt] Target IS a COLUMNS node')
     loggers.dragGuideline.debug('[createTwoColumnLayoutAt] ✅ Target IS a COLUMNS node, calling addColumnToExistingColumns', {
       columnsPos: pos,
       side,
@@ -100,7 +99,7 @@ export function createTwoColumnLayoutAt(
       const columnsNode = node
       const columnsPos = $target.before(columnsDepth)
 
-      console.log('[createTwoColumnLayoutAt] Found COLUMNS ancestor')
+      loggers.dragGuideline.debug('[createTwoColumnLayoutAt] Found COLUMNS ancestor')
       loggers.dragGuideline.debug('[createTwoColumnLayoutAt] ✅ Found COLUMNS ancestor, calling addColumnToExistingColumns', {
         columnsPos,
         columnsDepth,
@@ -125,7 +124,7 @@ export function createTwoColumnLayoutAt(
   for (let d = $target.depth; d >= 0; d--) {
     const node = $target.node(d)
     if (node.type.name === COLUMN_NODE_NAME) {
-      console.log('[createTwoColumnLayoutAt] skip: target inside column without columns ancestor')
+      loggers.dragGuideline.debug('[createTwoColumnLayoutAt] skip: target inside column without columns ancestor')
       loggers.dragGuideline.debug('[createTwoColumnLayoutAt] skip: target inside column without columns ancestor', {
         nodeType: node.type.name,
         depth: d,
@@ -138,7 +137,7 @@ export function createTwoColumnLayoutAt(
   const columnType = state.schema.nodes[COLUMN_NODE_NAME]
 
   if (!columnsType || !columnType) {
-    console.log('[createTwoColumnLayoutAt] schema missing columns/column')
+    loggers.dragGuideline.debug('[createTwoColumnLayoutAt] schema missing columns/column')
     loggers.dragGuideline.error(
       'vertical-drop: columns / column node type not found in schema',
       { available: Object.keys(state.schema.nodes) },
@@ -184,7 +183,7 @@ export function createTwoColumnLayoutAt(
 
   view.dispatch(tr)
 
-  console.log('[createTwoColumnLayoutAt] Success: columns created')
+  loggers.dragGuideline.debug('[createTwoColumnLayoutAt] Success: columns created')
   loggers.dragGuideline.debug('[createTwoColumnLayoutAt] columns created', {
     targetPos: pos,
     from: dragging.from,
@@ -271,7 +270,6 @@ function addColumnToExistingColumns(
 ): boolean {
   const { state, dragging } = view
 
-  console.log('[addColumnToExistingColumns] START', { columnsPos, side, insertAfterIndex, currentCount: columnsNode.childCount })
   loggers.dragGuideline.debug('[addColumnToExistingColumns] START', {
     columnsPos,
     side,
@@ -280,7 +278,6 @@ function addColumnToExistingColumns(
   })
 
   if (!dragging || dragging.slice == null) {
-    console.log('[addColumnToExistingColumns] skip: no dragging slice')
     loggers.dragGuideline.debug('[addColumnToExistingColumns] skip: no dragging slice')
     loggers.dragGuideline.debug('vertical-drop: addColumnToExistingColumns skipped, no dragging slice')
     return false
@@ -290,7 +287,7 @@ function addColumnToExistingColumns(
   const columnType = schema.nodes[COLUMN_NODE_NAME]
 
   if (!columnType) {
-    console.log('[addColumnToExistingColumns] skip: column node type not found')
+    loggers.dragGuideline.debug('[addColumnToExistingColumns] skip: column node type not found')
     loggers.dragGuideline.error('vertical-drop: column node type not found in schema', {
       available: Object.keys(schema.nodes),
     })
@@ -299,7 +296,6 @@ function addColumnToExistingColumns(
 
   const currentCount = columnsNode.childCount
   if (currentCount >= MAX_COLUMNS) {
-    console.log('[addColumnToExistingColumns] skip: reached MAX_COLUMNS')
     loggers.dragGuideline.debug('[addColumnToExistingColumns] skip: reached MAX_COLUMNS', {
       currentCount,
       MAX_COLUMNS,

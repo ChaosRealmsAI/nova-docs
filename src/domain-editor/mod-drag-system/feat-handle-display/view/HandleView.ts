@@ -303,20 +303,22 @@ export class HandleView {
 
   private findBoundaryElement(node: PMNode, pos: number): HTMLElement | null {
     // 优先使用 nodeDOM 获取节点对应的 DOM
-    let element = this.editorView.nodeDOM(pos) as HTMLElement | null
+    const nodeDOM = this.editorView.nodeDOM(pos)
+    let element: HTMLElement | null = nodeDOM instanceof HTMLElement ? nodeDOM : null
 
     // 同时使用 domAtPos 获取更精确的内部元素（特别是 NodeView 场景）
     const domResult = this.editorView.domAtPos(pos)
     let innerElement: HTMLElement | null = null
     if (domResult.node.nodeType === Node.TEXT_NODE) {
       innerElement = domResult.node.parentElement
-    } else {
-      innerElement = domResult.node as HTMLElement
+    } else if (domResult.node instanceof HTMLElement) {
+      innerElement = domResult.node
     }
 
     // 如果 nodeDOM 是 NodeView wrapper 或者根节点，而 domAtPos 能提供更内部的元素，则优先使用 innerElement
     if (innerElement && innerElement !== this.editorView.dom) {
-      const isNodeViewWrapper = element?.hasAttribute('data-node-view-wrapper') ?? false
+      // 安全检查：确保 element 是 HTMLElement 后再调用 hasAttribute
+      const isNodeViewWrapper = (element instanceof HTMLElement && element.hasAttribute('data-node-view-wrapper')) ?? false
       if (!element || element === this.editorView.dom || isNodeViewWrapper) {
         element = innerElement
       }
@@ -390,9 +392,25 @@ export class HandleView {
    * 拖拽开始回调 - 立即隐藏菜单
    */
   private handleDragStarted() {
-    // 立即隐藏菜单
+    // 强力清理：销毁 tippy 实例，确保菜单立即消失
     if (this.tippyInstance) {
-      this.tippyInstance.hide()
+      this.tippyInstance.destroy()
+      this.tippyInstance = null
+    }
+    
+    // 隐藏高亮
+    const currentNodeId = this.highlightManager.getCurrentNodeId()
+    if (currentNodeId) {
+      this.highlightManager.hideHighlight(currentNodeId)
+    }
+    
+    // 重置菜单状态
+    this.menuState = {
+      open: false,
+      position: { x: 0, y: 0 },
+      nodeId: null,
+      nodePos: null,
+      isEmptyNode: false
     }
   }
 
@@ -403,14 +421,14 @@ export class HandleView {
     // 重置状态
     this.isMouseOverHandle = false
     this.isMouseOverMenu = false
-    // 销毁 tippy 实例（而不仅仅是隐藏）
-    // 拖拽后节点位置变化，旧的 tippy 实例绑定的句柄可能已失效
+    
+    // 再次清理（保险起见）
     if (this.tippyInstance) {
       this.tippyInstance.destroy()
       this.tippyInstance = null
     }
     this.currentMenuHandle = null
-    // 重置菜单状态
+    
     this.menuState = {
       open: false,
       position: { x: 0, y: 0 },
@@ -418,6 +436,7 @@ export class HandleView {
       nodePos: null,
       isEmptyNode: false
     }
+    
     // 隐藏当前高亮
     const currentNodeId = this.highlightManager.getCurrentNodeId()
     if (currentNodeId) {
@@ -443,6 +462,8 @@ export class HandleView {
 
     // 句柄 mouseenter（简化版：立即显示菜单）
     handle.addEventListener('mouseenter', () => {
+      if (this.dragBehavior.isDragging()) return
+
       this.isMouseOverHandle = true
       this.highlightManager.showHandleByNodeId(nodeId)
       this.highlightManager.showHighlight(nodeId)
@@ -483,6 +504,9 @@ export class HandleView {
    * 为句柄显示菜单（使用 tippy.js）
    */
   private showMenuForHandle(handle: HTMLElement, nodeId: string, pos: number) {
+    // 如果正在拖拽，绝对不显示菜单
+    if (this.dragBehavior.isDragging()) return
+
     // 检测是否为空节点
     const isEmptyNode = handle.getAttribute('data-empty') === 'true'
 

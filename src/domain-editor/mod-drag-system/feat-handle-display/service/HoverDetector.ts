@@ -7,6 +7,7 @@
 
 import type { EditorView } from '@tiptap/pm/view'
 import type { Node as PMNode } from '@tiptap/pm/model'
+import { loggers } from '@nova/infrastructure/logger'
 import type { HoverResult } from '../model'
 import { NodeMatcher } from './NodeMatcher'
 
@@ -55,7 +56,7 @@ export class HoverDetector {
     // 直接从 DOM 向上查找最近的可拖拽节点
     const domResult = this.detectFromDOM(view, target)
     if (domResult) {
-      console.log('[HoverDetector] Phase1 DOM First 命中:', {
+      loggers.handleDisplay.debug('Phase1 DOM First 命中:', {
         nodeType: domResult.node?.type.name,
         pos: domResult.pos,
         nodeId: domResult.nodeId
@@ -66,7 +67,7 @@ export class HoverDetector {
     // --- Phase 2: Raycast Fallback (整行感应模式) ---
     // 支持编辑器留白区域和列容器内的整行感应
     const columnElement = this.getColumnContext(target, now)
-    console.log('[HoverDetector] Phase2 Raycast 开始:', {
+    loggers.handleDisplay.debug('Phase2 Raycast 开始:', {
       inColumn: !!columnElement,
       targetTag: target.tagName,
       targetClass: target.className
@@ -74,7 +75,7 @@ export class HoverDetector {
 
     const raycastResult = this.detectFromRaycast(view, event, columnElement)
     if (raycastResult) {
-      console.log('[HoverDetector] Phase2 Raycast 命中:', {
+      loggers.handleDisplay.debug('Phase2 Raycast 命中:', {
         nodeType: raycastResult.node?.type.name,
         pos: raycastResult.pos,
         nodeId: raycastResult.nodeId
@@ -82,7 +83,7 @@ export class HoverDetector {
       return raycastResult
     }
 
-    console.log('[HoverDetector] 未检测到可拖拽节点')
+    loggers.handleDisplay.debug('未检测到可拖拽节点')
     return null
   }
 
@@ -200,7 +201,7 @@ export class HoverDetector {
   private resolveNodeAtPos(view: EditorView, pos: number): HoverResult | null {
     const $pos = view.state.doc.resolve(pos)
 
-    console.log('[HoverDetector] resolveNodeAtPos 开始:', { pos, depth: $pos.depth })
+    loggers.handleDisplay.debug('resolveNodeAtPos 开始:', { pos, depth: $pos.depth })
 
     // 从当前深度向上遍历，找到第一个符合白名单的可拖拽祖先节点
     for (let depth = $pos.depth; depth >= 0; depth--) {
@@ -215,7 +216,7 @@ export class HoverDetector {
       const nodePos = depth > 0 ? $pos.before(depth) : 0
       const path = this.buildNodePath(view, nodePos, node)
 
-      console.log('[HoverDetector] 检查节点:', {
+      loggers.handleDisplay.debug('检查节点:', {
         depth,
         nodeType: node.type.name,
         path,
@@ -226,7 +227,7 @@ export class HoverDetector {
       if (this.nodeMatcher.isDraggable(node, nodePos, path)) {
         const nodeId = this.nodeMatcher.getNodeId(node, nodePos)
 
-        console.log('[HoverDetector] ✅ 白名单匹配:', { path, nodeType: node.type.name })
+        loggers.handleDisplay.debug('✅ 白名单匹配:', { path, nodeType: node.type.name })
 
         return {
           nodeId,
@@ -235,7 +236,7 @@ export class HoverDetector {
           node
         }
       } else {
-        console.log('[HoverDetector] ❌ 白名单不匹配:', { path, nodeType: node.type.name })
+        loggers.handleDisplay.debug('❌ 白名单不匹配:', { path, nodeType: node.type.name })
       }
     }
 

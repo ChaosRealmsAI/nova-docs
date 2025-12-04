@@ -1,5 +1,6 @@
 import { Plugin } from '@tiptap/pm/state'
 import type { EditorView } from '@tiptap/pm/view'
+import { loggers } from '@nova/infrastructure/logger'
 import {
   HORIZONTAL_GUIDELINE_PLUGIN_KEY,
   INITIAL_HORIZONTAL_GUIDELINE_STATE,
@@ -73,7 +74,7 @@ export function createHorizontalGuidelinePlugin(
         ) as VerticalGuidelineState | undefined
         
         if (verticalState?.isVisible) {
-          console.log('[HorizontalPlugin] Vertical visible, forcing hide. VertState:', verticalState)
+          loggers.dragGuideline.debug('[HorizontalPlugin] Vertical visible, forcing hide. VertState:', verticalState)
           const currentState = HORIZONTAL_GUIDELINE_PLUGIN_KEY.getState(editorView.state)
           if (currentState?.isVisible) {
             const tr = editorView.state.tr.setMeta(
@@ -86,7 +87,7 @@ export function createHorizontalGuidelinePlugin(
         }
 
         const nextState = calculator.calculate(editorView, event)
-        console.log('[HorizontalPlugin] Calculated state:', nextState)
+        loggers.dragGuideline.debug('[HorizontalPlugin] Calculated state:', nextState)
         const currentState = HORIZONTAL_GUIDELINE_PLUGIN_KEY.getState(editorView.state)
         if (isSameState(currentState, nextState)) {
           return
