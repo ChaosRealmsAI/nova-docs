@@ -174,17 +174,22 @@ print(fibonacci(10))</code></pre>
 <h2 data-numbered="true" data-manual-number="8.">${t('editorListTitle')}</h2>
 <p>${t('editorListDesc')}</p>
 
-<ol>
-  <li>${t('editorOrderedItem')} 1</li>
-  <li>${t('editorOrderedItem')} 2</li>
-  <li>${t('editorOrderedItem')} 3</li>
-</ol>
-
-<ul>
-  <li>${t('editorUnorderedItem')}</li>
-  <li>${t('editorUnorderedItem')}</li>
-  <li>${t('editorUnorderedItem')}</li>
-</ul>
+<div data-type="columns" data-columns="2" data-column-widths="[50,50]">
+  <div data-type="column">
+    <ol>
+      <li>${t('editorOrderedItem')} 1</li>
+      <li>${t('editorOrderedItem')} 2</li>
+      <li>${t('editorOrderedItem')} 3</li>
+    </ol>
+  </div>
+  <div data-type="column">
+    <ul>
+      <li>${t('editorUnorderedItem')}</li>
+      <li>${t('editorUnorderedItem')}</li>
+      <li>${t('editorUnorderedItem')}</li>
+    </ul>
+  </div>
+</div>
 
 <h2 data-numbered="true" data-manual-number="9.">${t('editorTaskListTitle')}</h2>
 <p>${t('editorTaskListDesc')}</p>
