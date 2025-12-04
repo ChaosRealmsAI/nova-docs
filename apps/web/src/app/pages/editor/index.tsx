@@ -3,6 +3,8 @@ import { EditorContent, useEditor } from '@tiptap/react'
 import { useEditorSetup } from '@nova/domain-editor/mod-editor-core/feat-full-editor'
 import { TocNew, type HeadingItem } from '@nova/domain-editor/shared/ui/toc-new'
 import { SelectionToolbar, useSelectionToolbar } from '@nova/domain-editor/shared/ui/selection-toolbar'
+import { EmptyNodeMenu } from '@nova/domain-editor/shared/ui/empty-node-menu'
+import { useSlashMenu } from '@nova/domain-editor/mod-editor-node/feat-slash-command'
 import { useI18n } from '@nova/shared/i18n'
 import type { MessageKey } from '@nova/shared/i18n/messages'
 import './editor.css'
@@ -13,6 +15,7 @@ import '@nova/domain-editor/shared/ui/multi-column/multi-column.css'
 import '@nova/domain-editor/shared/ui/toc-new/toc-new.css'
 import '@nova/domain-editor/shared/ui/handle-menu/handle-menu.css'
 import '@nova/domain-editor/shared/ui/selection-toolbar/selection-toolbar.css'
+import '@nova/domain-editor/shared/ui/empty-node-menu/empty-node-menu.css'
 
 /** Generate initial content with i18n */
 function createInitialContent(t: (key: MessageKey) => string): string {
@@ -275,6 +278,9 @@ export default function EditorPage() {
   // 选中文字工具栏
   const selectionToolbar = useSelectionToolbar({ editor })
 
+  // 斜杠命令菜单
+  const slashMenu = useSlashMenu({ editor })
+
   // 更新标题列表和折叠状态
   const updateHeadingsAndCollapsed = useCallback(() => {
     if (!editor) return
@@ -521,6 +527,26 @@ export default function EditorPage() {
         onFormat={selectionToolbar.format}
         onColorChange={selectionToolbar.setColor}
       />
+
+      {/* 斜杠命令菜单 */}
+      {slashMenu.open && (
+        <div
+          style={{
+            position: 'fixed',
+            left: `${slashMenu.position.x}px`,
+            top: `${slashMenu.position.y}px`,
+            zIndex: 1000,
+          }}
+        >
+          <EmptyNodeMenu
+            open={slashMenu.open}
+            onClose={slashMenu.close}
+            onSelect={slashMenu.selectBlockType}
+            onMouseEnter={slashMenu.onMouseEnter}
+            onMouseLeave={slashMenu.onMouseLeave}
+          />
+        </div>
+      )}
     </div>
   )
 }

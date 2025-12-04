@@ -1,4 +1,6 @@
 /* Table Styles */
+@import './table-add-controls.css';
+
 .ProseMirror table {
   border-collapse: collapse;
   table-layout: fixed;
@@ -35,14 +37,34 @@
   pointer-events: none;
 }
 
+/* 列宽调整手柄 */
 .ProseMirror .column-resize-handle {
   position: absolute;
   right: -2px;
   top: 0;
-  bottom: -2px;
+  bottom: 0;
   width: 4px;
-  background-color: #adf;
+  background-color: #2383e2;
   pointer-events: none;
+  z-index: 20;
+}
+
+/* 表格容器需要 overflow visible 才能显示 resize handle */
+.ProseMirror .tableWrapper {
+  overflow-x: auto;
+  overflow-y: visible;
+}
+
+/* 拖动时的光标 */
+.ProseMirror.resize-cursor {
+  cursor: col-resize !important;
+}
+
+/* 确保单元格可以被 resize */
+.ProseMirror td,
+.ProseMirror th {
+  position: relative;
+  overflow: visible;
 }
 
 .ProseMirror p {

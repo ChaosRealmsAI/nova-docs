@@ -74,23 +74,43 @@
 }
 
 /* ==================== 占位符 ==================== */
-.ProseMirror .is-empty::before {
+/* Tiptap Placeholder 扩展样式 */
+
+/* 空节点基础样式 */
+.ProseMirror .is-empty,
+.ProseMirror .is-node-empty {
+  position: relative;
+}
+
+/* 占位符文字 - 使用 ::before 伪元素 */
+.ProseMirror .is-empty::before,
+.ProseMirror .is-node-empty::before {
   content: attr(data-placeholder);
-  float: left;
+  position: absolute;
+  left: 0;
+  top: 0;
   color: var(--muted-foreground);
-  opacity: 0.6;
+  opacity: 0.5;
   pointer-events: none;
   height: 0;
+  overflow: visible;
+  white-space: nowrap;
 }
 
-.ProseMirror .is-empty::after {
-  content: '';
-  display: block;
-  clear: both;
+/* 确保段落有最小高度 */
+.ProseMirror p.is-empty,
+.ProseMirror p.is-node-empty {
+  min-height: 1.5em;
 }
 
-.ProseMirror .is-empty {
-  min-height: 1.25rem;
+/* 标题占位符 */
+.ProseMirror h1.is-empty::before,
+.ProseMirror h2.is-empty::before,
+.ProseMirror h3.is-empty::before,
+.ProseMirror h1.is-node-empty::before,
+.ProseMirror h2.is-node-empty::before,
+.ProseMirror h3.is-node-empty::before {
+  opacity: 0.4;
 }
 
 /* ==================== 列表 ==================== */

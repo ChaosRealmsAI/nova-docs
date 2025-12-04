@@ -3,7 +3,7 @@ import type { EditorView } from '@tiptap/pm/view'
 import type { Node as PMNode } from '@tiptap/pm/model'
 import { calculateFoldRange, getHeadingDepth, isHeadingNode } from '@nova/domain-editor/mod-editor-node/feat-heading-structure/service/fold/RangeCalculator'
 import { DragPreviewRenderer, type DragPreviewResult } from './DragPreviewRenderer'
-import { NodeMatcher, type NodeBoundarySelectorConfig } from '../..//service/NodeMatcher'
+import { NodeMatcher, type NodeBoundarySelectorConfig } from '../../service/NodeMatcher'
 import { loggers } from '@nova/infrastructure/logger'
 
 export interface DragBehaviorOptions {
@@ -124,7 +124,7 @@ export class DragBehavior {
       }
     }
     this.editorView.dispatch(tr)
-    ;(this.editorView as any).dragging = { slice, move: true, from, to }
+      ; (this.editorView as any).dragging = { slice, move: true, from, to }
     loggers.handleDisplay.debug('[DragBehavior] view.dragging set', { from, to })
 
     const boundaryElement = this.findBoundaryElement(node, nodePos)

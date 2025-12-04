@@ -44,7 +44,11 @@ export function createBasicPreset(enableUniversalId = false): AnyExtension[] {
       dropcursor: false, // 禁用原生 dropcursor，使用自定义引导线系统
     }),
     Placeholder.configure({
-      placeholder: '开始输入...',
+      placeholder: '输入 / 唤起命令菜单...',
+      emptyEditorClass: 'is-editor-empty',
+      emptyNodeClass: 'is-empty',
+      showOnlyWhenEditable: true,
+      showOnlyCurrent: true,
     }),
   ]
 
@@ -108,7 +112,11 @@ export function createFullPreset(enableUniversalId = true): AnyExtension[] {
       defaultLanguage: 'javascript',
     }),
     Placeholder.configure({
-      placeholder: '开始输入...',
+      placeholder: '输入 / 唤起命令菜单...',
+      emptyEditorClass: 'is-editor-empty',
+      emptyNodeClass: 'is-empty',
+      showOnlyWhenEditable: true,
+      showOnlyCurrent: true,
     }),
     // 文本格式扩展（用于选中工具栏）
     Underline,
