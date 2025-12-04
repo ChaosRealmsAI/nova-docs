@@ -5,10 +5,6 @@ import { resolve } from 'path'
 
 export default defineConfig({
   base: process.env.VITE_BASE_PATH || '/',
-  build: {
-    outDir: resolve(__dirname, '../../dist'),
-    emptyOutDir: true,
-  },
   plugins: [
     react(),
     tailwindcss(),

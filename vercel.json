@@ -1,5 +1,5 @@
 {
-  "buildCommand": "pnpm --filter @nova/web build",
+  "buildCommand": "pnpm --filter @nova/web build && cp -r apps/web/dist .",
   "outputDirectory": "dist",
   "installCommand": "pnpm install"
 }
