@@ -1,0 +1,1 @@
+export { HeadingStructureExtension } from '../view'

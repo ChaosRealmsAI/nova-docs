@@ -1,0 +1,337 @@
+/**
+ * ProseMirror Base Styles
+ * 基础编辑器样式，使用 CSS 变量支持主题切换
+ */
+
+/* 编辑器基础样式 */
+.ProseMirror {
+  outline: none;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--nova-text-primary, #e0e0e0);
+}
+
+.ProseMirror > * + * {
+  margin-top: 0.75em;
+}
+
+/* 标题样式 */
+.ProseMirror h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+  color: var(--nova-text-heading, #fff);
+}
+
+.ProseMirror h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+  line-height: 1.3;
+  color: var(--nova-text-heading, #fff);
+}
+
+.ProseMirror h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+  color: var(--nova-text-heading, #fff);
+}
+
+.ProseMirror h4,
+.ProseMirror h5,
+.ProseMirror h6 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  color: var(--nova-text-heading, #fff);
+}
+
+/* 段落 */
+.ProseMirror p {
+  margin-bottom: 0.75em;
+}
+
+/* 粗体和斜体 */
+.ProseMirror strong {
+  font-weight: 600;
+  color: var(--nova-text-heading, #fff);
+}
+
+.ProseMirror em {
+  font-style: italic;
+}
+
+/* 删除线 */
+.ProseMirror s {
+  text-decoration: line-through;
+  color: var(--nova-text-muted, #888);
+}
+
+/* 下划线 */
+.ProseMirror u {
+  text-decoration: underline;
+}
+
+/* 内联代码 */
+.ProseMirror code {
+  background: var(--nova-code-bg, #2d2d2d);
+  color: var(--nova-code-text, #e06c75);
+  padding: 0.15em 0.4em;
+  border-radius: var(--nova-radius-sm, 4px);
+  font-family: 'Fira Code', 'Consolas', monospace;
+  font-size: 0.9em;
+}
+
+/* 高亮 */
+.ProseMirror mark {
+  background: var(--nova-highlight-bg, #e2b714);
+  color: var(--nova-highlight-text, #1a1a1a);
+  padding: 0.1em 0.2em;
+  border-radius: 2px;
+}
+
+/* 引用块 */
+.ProseMirror blockquote {
+  border-left: 4px solid var(--nova-blockquote-border, #4a9eff);
+  padding-left: 1rem;
+  margin: 1rem 0;
+  color: var(--nova-blockquote-text, #aaa);
+  font-style: italic;
+}
+
+.ProseMirror blockquote p {
+  margin: 0;
+}
+
+/* 代码块 - 基础样式（不含 NodeView 组件时的 fallback） */
+.ProseMirror pre {
+  background: var(--nova-code-block-bg, #1e1e1e);
+  border: 1px solid var(--nova-border, #333);
+  border-radius: var(--nova-radius-lg, 8px);
+  padding: 1rem;
+  overflow-x: auto;
+  margin: 1rem 0;
+}
+
+.ProseMirror pre code {
+  background: transparent;
+  color: var(--nova-text-primary, #d4d4d4);
+  padding: 0;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+/* 列表 */
+.ProseMirror ul,
+.ProseMirror ol {
+  padding-left: 1.5rem;
+  margin: 0.75rem 0;
+}
+
+.ProseMirror li {
+  margin: 0.25rem 0;
+}
+
+.ProseMirror li p {
+  margin: 0;
+}
+
+/* 表格 - 基础样式 */
+.ProseMirror table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1rem 0;
+  overflow: hidden;
+  border-radius: var(--nova-radius-lg, 8px);
+}
+
+.ProseMirror th,
+.ProseMirror td {
+  border: 1px solid var(--nova-border, #333);
+  padding: 0.75rem 1rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+.ProseMirror th {
+  background: var(--nova-table-header-bg, #2d2d2d);
+  font-weight: 600;
+  color: var(--nova-text-heading, #fff);
+}
+
+.ProseMirror td {
+  background: var(--nova-table-cell-bg, #1e1e1e);
+}
+
+.ProseMirror tr:hover td {
+  background: var(--nova-table-hover-bg, #252525);
+}
+
+/* 占位符 */
+.ProseMirror p.is-empty::before {
+  content: attr(data-placeholder);
+  color: var(--nova-text-muted, #666);
+  pointer-events: none;
+  float: left;
+  height: 0;
+}
+
+.ProseMirror.is-editor-empty::before {
+  content: attr(data-placeholder);
+  color: var(--nova-text-muted, #666);
+  pointer-events: none;
+  position: absolute;
+}
+
+/* 水平分割线 */
+.ProseMirror hr {
+  border: none;
+  border-top: 1px solid var(--nova-hr-color, #333);
+  margin: 2rem 0;
+}
+
+/* 链接 */
+.ProseMirror a {
+  color: var(--nova-accent, #4a9eff);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.ProseMirror a:hover {
+  color: var(--nova-accent-hover, #6bb3ff);
+}
+
+/* 选中状态 */
+.ProseMirror ::selection {
+  background: var(--nova-selection, rgba(74, 158, 255, 0.3));
+}
+
+/* 语法高亮 - 基础主题 */
+.ProseMirror pre .hljs-keyword {
+  color: var(--nova-code-keyword, #c586c0);
+}
+
+.ProseMirror pre .hljs-string {
+  color: var(--nova-code-string, #ce9178);
+}
+
+.ProseMirror pre .hljs-number {
+  color: var(--nova-code-number, #b5cea8);
+}
+
+.ProseMirror pre .hljs-function {
+  color: var(--nova-code-function, #dcdcaa);
+}
+
+.ProseMirror pre .hljs-comment {
+  color: var(--nova-code-comment, #6a9955);
+  font-style: italic;
+}
+
+.ProseMirror pre .hljs-variable,
+.ProseMirror pre .hljs-attr {
+  color: var(--nova-code-variable, #9cdcfe);
+}
+
+.ProseMirror pre .hljs-type,
+.ProseMirror pre .hljs-class {
+  color: var(--nova-code-type, #4ec9b0);
+}
+
+/* Callout 样式 */
+.ProseMirror [data-type="callout"] {
+  padding: 1rem 1.25rem;
+  border-radius: var(--nova-radius-lg, 8px);
+  margin: 1rem 0;
+  border-left: 4px solid;
+}
+
+.ProseMirror [data-type="callout"][data-theme="blue"] {
+  background: var(--nova-callout-blue-bg, rgba(59, 130, 246, 0.1));
+  border-left-color: var(--nova-callout-blue-border, #3b82f6);
+}
+
+.ProseMirror [data-type="callout"][data-theme="green"] {
+  background: var(--nova-callout-green-bg, rgba(34, 197, 94, 0.1));
+  border-left-color: var(--nova-callout-green-border, #22c55e);
+}
+
+.ProseMirror [data-type="callout"][data-theme="yellow"] {
+  background: var(--nova-callout-yellow-bg, rgba(234, 179, 8, 0.1));
+  border-left-color: var(--nova-callout-yellow-border, #eab308);
+}
+
+.ProseMirror [data-type="callout"][data-theme="red"] {
+  background: var(--nova-callout-red-bg, rgba(239, 68, 68, 0.1));
+  border-left-color: var(--nova-callout-red-border, #ef4444);
+}
+
+.ProseMirror [data-type="callout"] p {
+  margin: 0.25rem 0;
+}
+
+.ProseMirror [data-type="callout"] p:first-child {
+  margin-top: 0;
+}
+
+.ProseMirror [data-type="callout"] p:last-child {
+  margin-bottom: 0;
+}
+
+/* 多列布局 */
+.ProseMirror [data-type="columns"] {
+  display: flex;
+  gap: 1.5rem;
+  margin: 1rem 0;
+}
+
+.ProseMirror [data-type="column"] {
+  flex: 1;
+  min-width: 0;
+  padding: 1rem;
+  background: var(--nova-column-bg, #252525);
+  border-radius: var(--nova-radius-lg, 8px);
+  border: 1px solid var(--nova-column-border, #333);
+}
+
+.ProseMirror [data-type="column"] p:first-child {
+  margin-top: 0;
+}
+
+.ProseMirror [data-type="column"] p:last-child {
+  margin-bottom: 0;
+}
+
+/* 任务列表 */
+.ProseMirror ul[data-type="taskList"] {
+  list-style: none;
+  padding-left: 0;
+}
+
+.ProseMirror ul[data-type="taskList"] li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.ProseMirror ul[data-type="taskList"] li > label {
+  flex-shrink: 0;
+  margin-top: 0.25rem;
+}
+
+.ProseMirror ul[data-type="taskList"] li > div {
+  flex: 1;
+}
+
+.ProseMirror ul[data-type="taskList"] li[data-checked="true"] > div p {
+  text-decoration: line-through;
+  color: var(--nova-task-checked-text, #666);
+}

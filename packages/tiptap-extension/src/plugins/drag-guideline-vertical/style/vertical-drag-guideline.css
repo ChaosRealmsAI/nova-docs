@@ -1,0 +1,19 @@
+/* 当垂直引导线显示时，隐藏原生 ProseMirror dropcursor */
+.ProseMirror[data-vertical-guideline-visible] .ProseMirror-dropcursor,
+.ProseMirror[data-vertical-guideline-visible] .prosemirror-dropcursor {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+
+.syllo-vert-guideline {
+  position: absolute;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+.syllo-vert-guideline--columns-edge,
+.syllo-vert-guideline--editor-border {
+  width: 2px;
+  background: var(--primary, #3b82f6);
+}

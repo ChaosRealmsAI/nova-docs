@@ -1,0 +1,195 @@
+/**
+ * 拖拽句柄样式（一比一复刻飞书风格）
+ */
+
+/* ===== 飞书风格 - 精确颜色定义 ===== */
+:root {
+  --feishu-icon-blue: var(--primary, #FF8C42);
+  --feishu-drag-icon-color: rgb(143, 149, 158);
+  --feishu-bg-surface: rgb(239, 240, 241);
+  --feishu-border-color: rgb(222, 224, 227);
+  --feishu-text-primary: rgb(31, 35, 41);
+  --feishu-bg-active: color-mix(in srgb, var(--primary, #FF8C42) 20%, transparent);
+  --feishu-hover-bg: color-mix(in srgb, var(--primary, #FF8C42) 10%, transparent);
+}
+
+.dark {
+  --feishu-icon-blue: var(--primary, #FF8C42);
+  --feishu-drag-icon-color: rgb(156, 163, 175);
+  --feishu-bg-surface: rgb(45, 45, 45);
+  --feishu-border-color: rgb(58, 58, 58);
+  --feishu-text-primary: rgb(243, 244, 246);
+  --feishu-bg-active: color-mix(in srgb, var(--primary, #FF8C42) 20%, transparent);
+  --feishu-hover-bg: color-mix(in srgb, var(--primary, #FF8C42) 15%, transparent);
+}
+
+/* ===== 飞书风格 - 拖拽手柄容器 ===== */
+.feishu-menu-trigger {
+  width: 42px !important;
+  height: 26px !important;
+  cursor: grab !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 标题节点的拖拽手柄需要更宽 */
+.feishu-menu-trigger[data-node-type="heading"],
+.feishu-menu-trigger[data-node-type="numberedHeading"] {
+  width: 60px !important;
+}
+
+/* 内层wrapper - 飞书风格外框（精确复刻） */
+.feishu-menu-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  width: 42px;
+  height: 26px;
+  padding: 1px;
+  border-radius: 6px;
+  background-color: transparent;
+  border: 1px solid var(--feishu-border-color);
+  transition: background-color 0.15s ease, border-color 0.3s ease;
+}
+
+/* 标题节点和列表折叠的wrapper需要更宽以容纳折叠按钮 */
+.feishu-menu-wrapper.heading-with-fold,
+.feishu-menu-wrapper.list-with-fold {
+  width: 60px;
+  gap: 4px;
+  padding: 0 2px;
+}
+
+/* 标题内置折叠按钮样式 */
+.heading-fold-toggle-inline {
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+  color: var(--feishu-drag-icon-color);
+}
+
+.feishu-menu-wrapper.heading-with-fold .heading-fold-toggle-inline {
+  opacity: 1;
+  pointer-events: auto;
+  width: 18px;
+  height: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+}
+
+.heading-fold-toggle-inline:hover {
+  background-color: var(--feishu-hover-bg) !important;
+  color: var(--feishu-icon-blue) !important;
+}
+
+.heading-fold-toggle-inline svg {
+  pointer-events: none;
+}
+
+.heading-fold-toggle-inline path {
+  transition: fill 0.2s ease;
+}
+
+/* Hover时的wrapper样式 - 完全复刻飞书 */
+.feishu-menu-trigger:hover .feishu-menu-wrapper {
+  background-color: var(--feishu-bg-surface);
+}
+
+.feishu-menu-trigger:hover .feishu-type-icon {
+  color: var(--feishu-icon-blue);
+  filter: brightness(1.1);
+}
+
+.feishu-menu-trigger:hover .feishu-drag-handle {
+  color: var(--feishu-text-primary);
+}
+
+.feishu-menu-trigger:hover .fold-toggle-inline {
+  color: var(--feishu-drag-icon-color);
+}
+
+/* 空节点的wrapper样式 - 只显示加号 */
+.empty-node-wrapper {
+  gap: 0 !important; /* 去掉间隙 */
+  justify-content: center;
+}
+
+.empty-node-wrapper svg {
+  transition: transform 0.2s;
+}
+
+.empty-node-wrapper:hover svg {
+  transform: scale(1.1);
+}
+
+/* 类型图标容器 - 左侧 */
+.feishu-type-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 14px;
+  height: 14px;
+  color: var(--feishu-icon-blue);
+}
+
+/* 类型图标内部span */
+.feishu-type-icon span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 拖拽手柄图标容器 - 右侧 */
+.feishu-drag-handle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  color: var(--feishu-drag-icon-color);
+}
+
+/* 拖拽手柄span */
+.feishu-drag-handle span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 正在拖拽时的样式 */
+.feishu-menu-trigger:active {
+  cursor: grabbing !important;
+}
+
+/* ===== 飞书官方Hover遮罩层 ===== */
+.feishu-hover-mask {
+  /* 使用绝对定位遮罩层实现hover效果 */
+  position: absolute;
+  background-color: var(--feishu-hover-bg);
+  border-radius: 6px;
+  pointer-events: none; /* 关键: 不干扰交互 */
+  z-index: 1;
+  transition: opacity 0.2s ease;
+}
+
+/* 节点高亮样式 - 飞书方案 */
+.drag-node-highlight {
+  position: absolute !important;
+  pointer-events: none !important;
+  background-color: var(--feishu-hover-bg);
+  border-radius: 6px;
+  transition: opacity 0.2s ease;
+}
+
+.drag-node-highlight.fold-preview-active {
+  opacity: 0.65 !important;
+  background-color: color-mix(in srgb, var(--primary, #FF8C42) 30%, var(--feishu-hover-bg)) !important;
+  border: 1px dashed color-mix(in srgb, var(--primary, #FF8C42) 80%, transparent) !important;
+  z-index: 3 !important;
+}

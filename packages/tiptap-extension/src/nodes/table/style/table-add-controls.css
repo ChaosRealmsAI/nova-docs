@@ -1,0 +1,130 @@
+/**
+ * Table Add Controls 样式
+ * 表格行/列添加按钮
+ */
+
+.table-add-controls-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 100;
+}
+
+/* 通用控件样式 */
+.table-add-control {
+  position: absolute;
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 行添加控件 - 水平线 */
+.table-add-row {
+  flex-direction: row;
+  height: 16px;
+  transform: translateY(-50%);
+}
+
+.table-add-row .table-add-line {
+  flex: 1;
+  height: 2px;
+  background: var(--nova-accent, #2383e2);
+  opacity: 0.6;
+  transition: opacity 0.15s ease;
+}
+
+.table-add-row:hover .table-add-line {
+  opacity: 1;
+}
+
+/* 列添加控件 - 垂直线 */
+.table-add-column {
+  flex-direction: column;
+  width: 16px;
+  transform: translateX(-50%);
+}
+
+.table-add-column .table-add-line {
+  flex: 1;
+  width: 2px;
+  background: var(--nova-accent, #2383e2);
+  opacity: 0.6;
+  transition: opacity 0.15s ease;
+}
+
+.table-add-column:hover .table-add-line {
+  opacity: 1;
+}
+
+/* 加号按钮 */
+.table-add-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border: none;
+  border-radius: 50%;
+  background: var(--nova-accent, #2383e2);
+  color: white;
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+  transition: transform 0.15s ease, background-color 0.15s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.table-add-button:hover {
+  transform: scale(1.1);
+  background: var(--nova-accent-hover, #1a6fc9);
+}
+
+.table-add-button:active {
+  transform: scale(0.95);
+}
+
+.table-add-button svg {
+  width: 10px;
+  height: 10px;
+}
+
+/* 行控件的按钮位置 - 在左侧 */
+.table-add-row .table-add-button {
+  margin-right: 4px;
+  order: -1;
+}
+
+/* 列控件的按钮位置 - 在顶部 */
+.table-add-column .table-add-button {
+  margin-bottom: 4px;
+  order: -1;
+}
+
+/* 表格 hover 时显示边缘添加按钮的提示区域 */
+.ProseMirror table {
+  position: relative;
+}
+
+/* 表格右侧添加列的触发区域 */
+.ProseMirror table::after {
+  content: '';
+  position: absolute;
+  right: -12px;
+  top: 0;
+  width: 12px;
+  height: 100%;
+  /* background: rgba(255, 0, 0, 0.1); */ /* 调试用 */
+}
+
+/* 表格底部添加行的触发区域 */
+.ProseMirror table::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -12px;
+  width: 100%;
+  height: 12px;
+  /* background: rgba(0, 255, 0, 0.1); */ /* 调试用 */
+}

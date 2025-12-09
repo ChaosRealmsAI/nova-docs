@@ -1,0 +1,1 @@
+export { createTableExtensions } from '../model'

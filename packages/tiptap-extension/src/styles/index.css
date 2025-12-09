@@ -1,0 +1,42 @@
+/**
+ * @nova/tiptap-extension 统一样式
+ * 导入所有扩展的 CSS
+ *
+ * 主题切换方式：
+ * 1. 默认：暗色主题
+ * 2. 亮色主题：在编辑器容器上添加 class="nova-editor-light" 或 data-theme="light"
+ * 3. 跟随系统：添加 class="nova-editor-auto" 或 data-theme="auto"
+ * 4. 自定义：覆盖 CSS 变量即可
+ */
+
+/* Theme variables (must be first) */
+@import './theme.css';
+
+/* Base ProseMirror styles for out-of-box usage */
+@import './prosemirror-base.css';
+
+/* Nodes */
+@import '../nodes/heading-structure/style/heading-structure.css';
+@import '../nodes/callout/view/hover-toolbar.css';
+@import '../nodes/callout/view/color-picker.css';
+@import '../nodes/callout/view/icon-picker.css';
+@import '../nodes/table/style/index.css';
+@import '../nodes/table/style/table-add-controls.css';
+@import '../nodes/mermaid/view/styles.css';
+
+/* Plugins */
+@import '../plugins/drag-guideline-vertical/style/vertical-drag-guideline.css';
+
+/* Shared UI */
+@import '../shared/callout/callout.css';
+@import '../shared/multi-column/multi-column.css';
+@import '../shared/task-list/task-list.css';
+@import '../shared/drag-handle/drag-handle.css';
+@import '../shared/drop-cursor/drop-cursor.css';
+@import '../shared/drop-cursor/native-dropcursor-handle-display.css';
+@import '../shared/handle-menu/handle-menu.css';
+@import '../shared/empty-node-menu/empty-node-menu.css';
+@import '../shared/code-block/code-block.css';
+
+/* Theme System */
+@import '../theme/ColorSchemePicker.css';

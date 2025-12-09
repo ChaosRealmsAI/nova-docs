@@ -1,0 +1,274 @@
+/**
+ * Nova Editor Theme System
+ * 主题变量系统 - 支持暗色/亮色主题切换
+ *
+ * 使用方式：
+ * 1. 默认暗色主题：直接使用，无需配置
+ * 2. 亮色主题：在编辑器容器上添加 class="nova-editor-light" 或 data-theme="light"
+ * 3. 跟随系统：自动检测 prefers-color-scheme
+ * 4. 自定义：覆盖 CSS 变量即可
+ */
+
+/* ===== 暗色主题（默认） ===== */
+.ProseMirror,
+.nova-editor {
+  /* 基础色彩 */
+  --nova-bg-primary: #1a1a1a;
+  --nova-bg-secondary: #252525;
+  --nova-bg-tertiary: #2d2d2d;
+  --nova-bg-elevated: #333333;
+
+  /* 文字色彩 */
+  --nova-text-primary: #e0e0e0;
+  --nova-text-secondary: #aaaaaa;
+  --nova-text-muted: #888888;
+  --nova-text-heading: #ffffff;
+
+  /* 强调色 */
+  --nova-accent: #4a9eff;
+  --nova-accent-hover: #6bb3ff;
+  --nova-accent-muted: rgba(74, 158, 255, 0.2);
+
+  /* 边框 */
+  --nova-border: #333333;
+  --nova-border-light: #444444;
+  --nova-border-focus: #4a9eff;
+
+  /* 语义色彩 */
+  --nova-success: #22c55e;
+  --nova-warning: #eab308;
+  --nova-error: #ef4444;
+  --nova-info: #3b82f6;
+
+  /* 代码高亮 */
+  --nova-code-bg: #2d2d2d;
+  --nova-code-text: #e06c75;
+  --nova-code-block-bg: #1e1e1e;
+  --nova-code-keyword: #c586c0;
+  --nova-code-string: #ce9178;
+  --nova-code-number: #b5cea8;
+  --nova-code-function: #dcdcaa;
+  --nova-code-comment: #6a9955;
+  --nova-code-variable: #9cdcfe;
+  --nova-code-type: #4ec9b0;
+
+  /* 高亮/标记 */
+  --nova-highlight-bg: #e2b714;
+  --nova-highlight-text: #1a1a1a;
+  --nova-selection: rgba(74, 158, 255, 0.3);
+
+  /* 标题编号 */
+  --nova-heading-number: #ff8c42;
+
+  /* 引用块 */
+  --nova-blockquote-border: #4a9eff;
+  --nova-blockquote-text: #aaaaaa;
+
+  /* 表格 */
+  --nova-table-header-bg: #2d2d2d;
+  --nova-table-cell-bg: #1e1e1e;
+  --nova-table-hover-bg: #252525;
+
+  /* Callout 主题色 */
+  --nova-callout-blue-bg: rgba(59, 130, 246, 0.1);
+  --nova-callout-blue-border: #3b82f6;
+  --nova-callout-green-bg: rgba(34, 197, 94, 0.1);
+  --nova-callout-green-border: #22c55e;
+  --nova-callout-yellow-bg: rgba(234, 179, 8, 0.1);
+  --nova-callout-yellow-border: #eab308;
+  --nova-callout-red-bg: rgba(239, 68, 68, 0.1);
+  --nova-callout-red-border: #ef4444;
+
+  /* 多列布局 */
+  --nova-column-bg: #252525;
+  --nova-column-border: #333333;
+
+  /* 任务列表 */
+  --nova-task-checked-text: #666666;
+
+  /* 分割线 */
+  --nova-hr-color: #333333;
+
+  /* 阴影 */
+  --nova-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --nova-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.3);
+  --nova-shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.4);
+
+  /* 圆角 */
+  --nova-radius-sm: 4px;
+  --nova-radius-md: 6px;
+  --nova-radius-lg: 8px;
+
+  /* 过渡 */
+  --nova-transition: 0.2s ease;
+}
+
+/* ===== 亮色主题 ===== */
+.ProseMirror.nova-editor-light,
+.nova-editor-light .ProseMirror,
+.nova-editor-light,
+.ProseMirror[data-theme="light"],
+[data-theme="light"] .ProseMirror,
+[data-theme="light"] {
+  /* 基础色彩 */
+  --nova-bg-primary: #ffffff;
+  --nova-bg-secondary: #f8f9fa;
+  --nova-bg-tertiary: #f1f3f4;
+  --nova-bg-elevated: #ffffff;
+
+  /* 文字色彩 */
+  --nova-text-primary: #1f2937;
+  --nova-text-secondary: #6b7280;
+  --nova-text-muted: #9ca3af;
+  --nova-text-heading: #111827;
+
+  /* 强调色 */
+  --nova-accent: #2563eb;
+  --nova-accent-hover: #1d4ed8;
+  --nova-accent-muted: rgba(37, 99, 235, 0.1);
+
+  /* 边框 */
+  --nova-border: #e5e7eb;
+  --nova-border-light: #d1d5db;
+  --nova-border-focus: #2563eb;
+
+  /* 代码高亮 */
+  --nova-code-bg: #f3f4f6;
+  --nova-code-text: #dc2626;
+  --nova-code-block-bg: #f8f9fa;
+  --nova-code-keyword: #8b5cf6;
+  --nova-code-string: #059669;
+  --nova-code-number: #d97706;
+  --nova-code-function: #2563eb;
+  --nova-code-comment: #6b7280;
+  --nova-code-variable: #0891b2;
+  --nova-code-type: #7c3aed;
+
+  /* 高亮/标记 */
+  --nova-highlight-bg: #fef08a;
+  --nova-highlight-text: #1f2937;
+  --nova-selection: rgba(37, 99, 235, 0.2);
+
+  /* 标题编号 */
+  --nova-heading-number: #ea580c;
+
+  /* 引用块 */
+  --nova-blockquote-border: #2563eb;
+  --nova-blockquote-text: #6b7280;
+
+  /* 表格 */
+  --nova-table-header-bg: #f3f4f6;
+  --nova-table-cell-bg: #ffffff;
+  --nova-table-hover-bg: #f9fafb;
+
+  /* Callout 主题色 */
+  --nova-callout-blue-bg: rgba(59, 130, 246, 0.08);
+  --nova-callout-blue-border: #3b82f6;
+  --nova-callout-green-bg: rgba(34, 197, 94, 0.08);
+  --nova-callout-green-border: #22c55e;
+  --nova-callout-yellow-bg: rgba(234, 179, 8, 0.08);
+  --nova-callout-yellow-border: #eab308;
+  --nova-callout-red-bg: rgba(239, 68, 68, 0.08);
+  --nova-callout-red-border: #ef4444;
+
+  /* 多列布局 */
+  --nova-column-bg: #f8f9fa;
+  --nova-column-border: #e5e7eb;
+
+  /* 任务列表 */
+  --nova-task-checked-text: #9ca3af;
+
+  /* 分割线 */
+  --nova-hr-color: #e5e7eb;
+
+  /* 阴影 */
+  --nova-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --nova-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --nova-shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+/* ===== 跟随系统偏好 ===== */
+@media (prefers-color-scheme: light) {
+  .ProseMirror.nova-editor-auto,
+  .nova-editor-auto .ProseMirror,
+  .nova-editor-auto,
+  .ProseMirror[data-theme="auto"],
+  [data-theme="auto"] .ProseMirror,
+  [data-theme="auto"] {
+    /* 基础色彩 */
+    --nova-bg-primary: #ffffff;
+    --nova-bg-secondary: #f8f9fa;
+    --nova-bg-tertiary: #f1f3f4;
+    --nova-bg-elevated: #ffffff;
+
+    /* 文字色彩 */
+    --nova-text-primary: #1f2937;
+    --nova-text-secondary: #6b7280;
+    --nova-text-muted: #9ca3af;
+    --nova-text-heading: #111827;
+
+    /* 强调色 */
+    --nova-accent: #2563eb;
+    --nova-accent-hover: #1d4ed8;
+    --nova-accent-muted: rgba(37, 99, 235, 0.1);
+
+    /* 边框 */
+    --nova-border: #e5e7eb;
+    --nova-border-light: #d1d5db;
+    --nova-border-focus: #2563eb;
+
+    /* 代码高亮 */
+    --nova-code-bg: #f3f4f6;
+    --nova-code-text: #dc2626;
+    --nova-code-block-bg: #f8f9fa;
+    --nova-code-keyword: #8b5cf6;
+    --nova-code-string: #059669;
+    --nova-code-number: #d97706;
+    --nova-code-function: #2563eb;
+    --nova-code-comment: #6b7280;
+    --nova-code-variable: #0891b2;
+    --nova-code-type: #7c3aed;
+
+    /* 高亮/标记 */
+    --nova-highlight-bg: #fef08a;
+    --nova-highlight-text: #1f2937;
+    --nova-selection: rgba(37, 99, 235, 0.2);
+
+    /* 标题编号 */
+    --nova-heading-number: #ea580c;
+
+    /* 引用块 */
+    --nova-blockquote-border: #2563eb;
+    --nova-blockquote-text: #6b7280;
+
+    /* 表格 */
+    --nova-table-header-bg: #f3f4f6;
+    --nova-table-cell-bg: #ffffff;
+    --nova-table-hover-bg: #f9fafb;
+
+    /* Callout 主题色 */
+    --nova-callout-blue-bg: rgba(59, 130, 246, 0.08);
+    --nova-callout-blue-border: #3b82f6;
+    --nova-callout-green-bg: rgba(34, 197, 94, 0.08);
+    --nova-callout-green-border: #22c55e;
+    --nova-callout-yellow-bg: rgba(234, 179, 8, 0.08);
+    --nova-callout-yellow-border: #eab308;
+    --nova-callout-red-bg: rgba(239, 68, 68, 0.08);
+    --nova-callout-red-border: #ef4444;
+
+    /* 多列布局 */
+    --nova-column-bg: #f8f9fa;
+    --nova-column-border: #e5e7eb;
+
+    /* 任务列表 */
+    --nova-task-checked-text: #9ca3af;
+
+    /* 分割线 */
+    --nova-hr-color: #e5e7eb;
+
+    /* 阴影 */
+    --nova-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+    --nova-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+    --nova-shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.15);
+  }
+}

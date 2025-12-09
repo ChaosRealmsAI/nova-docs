@@ -1,0 +1,25 @@
+/**
+ * 覆盖默认 ProseMirror dropcursor 颜色（使用主题色）
+ *
+ * 不修改定位逻辑，只调整颜色/粗细和阴影。
+ */
+
+/* 垂直线 - 使用更强的选择器确保优先级 */
+.ProseMirror .ProseMirror-dropcursor,
+.ProseMirror-dropcursor {
+  /* 直接使用 oklch 格式匹配主题系统 */
+  border-color: var(--primary) !important;
+  border-left-color: var(--primary) !important;
+  border-width: 2px !important;
+  box-shadow: 0 0 12px var(--primary) !important;
+  opacity: 0.8 !important;
+}
+
+/* 兼容 prosemirror-dropcursor 包的类名 */
+.ProseMirror .prosemirror-dropcursor,
+.prosemirror-dropcursor {
+  background: var(--primary) !important;
+  box-shadow: 0 0 12px var(--primary) !important;
+  width: 2px !important;
+  opacity: 0.8 !important;
+}

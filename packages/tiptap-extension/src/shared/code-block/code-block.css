@@ -1,0 +1,209 @@
+/**
+ * Code Block Styles
+ * 使用 CSS 变量支持主题切换
+ */
+
+.code-block-wrapper {
+  position: relative;
+  margin: 1rem 0;
+  border-radius: var(--nova-radius-lg, 8px);
+  overflow: hidden;
+  background: var(--nova-code-block-bg, #1e1e1e);
+  border: 1px solid var(--nova-border, #333);
+}
+
+.code-block-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  background: var(--nova-bg-tertiary, #2d2d2d);
+  border-bottom: 1px solid var(--nova-border, #333);
+}
+
+.code-block-language-select {
+  position: relative;
+}
+
+.code-block-language-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  background: transparent;
+  border: 1px solid var(--nova-border-light, #444);
+  border-radius: var(--nova-radius-sm, 4px);
+  color: var(--nova-text-primary, #e0e0e0);
+  font-size: 12px;
+  cursor: pointer;
+  transition: all var(--nova-transition, 0.2s);
+}
+
+.code-block-language-btn:hover {
+  background: var(--nova-bg-elevated, #3d3d3d);
+  border-color: var(--nova-border-light, #555);
+}
+
+.code-block-language-btn svg {
+  transition: transform var(--nova-transition, 0.2s);
+}
+
+.code-block-language-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 4px;
+  min-width: 140px;
+  max-height: 240px;
+  overflow-y: auto;
+  background: var(--nova-bg-tertiary, #2d2d2d);
+  border: 1px solid var(--nova-border-light, #444);
+  border-radius: var(--nova-radius-md, 6px);
+  box-shadow: var(--nova-shadow-md, 0 4px 12px rgba(0, 0, 0, 0.3));
+  z-index: 100;
+}
+
+.code-block-language-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 8px 12px;
+  background: transparent;
+  border: none;
+  color: var(--nova-text-primary, #e0e0e0);
+  font-size: 12px;
+  text-align: left;
+  cursor: pointer;
+  transition: background var(--nova-transition, 0.15s);
+}
+
+.code-block-language-option:hover {
+  background: var(--nova-bg-elevated, #3d3d3d);
+}
+
+.code-block-language-option.active {
+  background: var(--nova-accent-muted, #4a9eff20);
+  color: var(--nova-accent, #4a9eff);
+}
+
+.code-block-copy-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  background: transparent;
+  border: 1px solid var(--nova-border-light, #444);
+  border-radius: var(--nova-radius-sm, 4px);
+  color: var(--nova-text-muted, #888);
+  font-size: 12px;
+  cursor: pointer;
+  transition: all var(--nova-transition, 0.2s);
+}
+
+.code-block-copy-btn:hover {
+  background: var(--nova-bg-elevated, #3d3d3d);
+  border-color: var(--nova-border-light, #555);
+  color: var(--nova-text-primary, #e0e0e0);
+}
+
+.code-block-copy-btn span {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.code-block-copied {
+  color: var(--nova-success, #22c55e);
+}
+
+.code-block-pre {
+  margin: 0;
+  padding: 16px;
+  overflow-x: auto;
+  font-family: 'Fira Code', 'Consolas', 'Monaco', monospace;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--nova-text-primary, #d4d4d4);
+  background: var(--nova-code-block-bg, #1e1e1e);
+}
+
+.code-block-pre code {
+  background: transparent;
+  padding: 0;
+  font-family: inherit;
+  font-size: inherit;
+}
+
+/* Syntax Highlighting - 跟随全局主题色方案 */
+/* 使用 --primary 和 --chart-* 变量，随主题色切换 */
+
+/* 关键字 - 使用主题主色 */
+.code-block-pre .hljs-keyword,
+.code-block-pre .token.keyword {
+  color: var(--primary, var(--nova-code-keyword, #c586c0));
+}
+
+/* 字符串 - 使用 chart-2 颜色 */
+.code-block-pre .hljs-string,
+.code-block-pre .hljs-subst,
+.code-block-pre .token.string {
+  color: var(--chart-2, var(--nova-code-string, #ce9178));
+}
+
+/* 数字 - 使用 chart-3 颜色 */
+.code-block-pre .hljs-number,
+.code-block-pre .token.number {
+  color: var(--chart-3, var(--nova-code-number, #b5cea8));
+}
+
+/* 函数名 - 使用 chart-1 颜色 */
+.code-block-pre .hljs-function,
+.code-block-pre .hljs-title.function_,
+.code-block-pre .token.function {
+  color: var(--chart-1, var(--nova-code-function, #dcdcaa));
+}
+
+/* 注释 - 使用 muted-foreground */
+.code-block-pre .hljs-comment,
+.code-block-pre .token.comment {
+  color: var(--muted-foreground, var(--nova-code-comment, #6a9955));
+  font-style: italic;
+}
+
+/* 变量/属性 - 使用 chart-4 颜色 */
+.code-block-pre .hljs-variable,
+.code-block-pre .hljs-attr,
+.code-block-pre .hljs-params,
+.code-block-pre .hljs-variable.language_,
+.code-block-pre .token.variable,
+.code-block-pre .token.attr-name {
+  color: var(--chart-4, var(--nova-code-variable, #9cdcfe));
+}
+
+/* 类型/类名 - 使用 chart-5 颜色 */
+.code-block-pre .hljs-type,
+.code-block-pre .hljs-class,
+.code-block-pre .hljs-title.class_,
+.code-block-pre .hljs-built_in,
+.code-block-pre .token.class-name {
+  color: var(--chart-5, var(--nova-code-type, #4ec9b0));
+}
+
+/* 标题 - 使用 chart-1 颜色 */
+.code-block-pre .hljs-title,
+.code-block-pre .token.title {
+  color: var(--chart-1, var(--nova-code-function, #dcdcaa));
+}
+
+/* 操作符 */
+.code-block-pre .hljs-operator,
+.code-block-pre .token.operator {
+  color: var(--foreground, var(--nova-text-primary, #d4d4d4));
+}
+
+/* 标点符号 */
+.code-block-pre .hljs-punctuation,
+.code-block-pre .token.punctuation {
+  color: var(--foreground, var(--nova-text-primary, #d4d4d4));
+}

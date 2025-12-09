@@ -1,0 +1,142 @@
+:root {
+  --numbered-heading-number-width: 36px;
+  --numbered-heading-fold-width: 18px;
+  --numbered-heading-indent-step: 18px;
+}
+
+.ProseMirror h1,
+.ProseMirror h2,
+.ProseMirror h3,
+.ProseMirror h4,
+.ProseMirror h5,
+.ProseMirror h6 {
+  position: relative;
+  overflow: visible;
+}
+
+.heading-fold-toggle-inline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--numbered-heading-fold-width);
+  height: var(--numbered-heading-fold-width);
+  margin-right: 0;
+  border: none;
+  background: transparent;
+  color: var(--feishu-icon-blue, #94a3b8);
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.heading-fold-toggle-inline svg {
+  pointer-events: none;
+  transform: rotate(0deg);
+  transition: transform 0.2s ease;
+}
+
+.heading-fold-toggle-inline[data-collapsed="true"] svg {
+  transform: rotate(-90deg);
+}
+
+.heading-fold-toggle-inline:hover {
+  background: color-mix(in srgb, var(--feishu-hover-bg, rgba(148, 163, 184, 0.15)) 80%, transparent);
+  color: var(--color-primary, #ff8c42);
+}
+
+.ProseMirror h1:hover > .heading-fold-toggle-inline,
+.ProseMirror h2:hover > .heading-fold-toggle-inline,
+.ProseMirror h3:hover > .heading-fold-toggle-inline,
+.ProseMirror h4:hover > .heading-fold-toggle-inline,
+.ProseMirror h5:hover > .heading-fold-toggle-inline,
+.ProseMirror h6:hover > .heading-fold-toggle-inline {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.heading-fold-toggle-inline[data-collapsed="true"],
+.ProseMirror h1[data-collapsed="true"] > .heading-fold-toggle-inline,
+.ProseMirror h2[data-collapsed="true"] > .heading-fold-toggle-inline,
+.ProseMirror h3[data-collapsed="true"] > .heading-fold-toggle-inline,
+.ProseMirror h4[data-collapsed="true"] > .heading-fold-toggle-inline,
+.ProseMirror h5[data-collapsed="true"] > .heading-fold-toggle-inline,
+.ProseMirror h6[data-collapsed="true"] > .heading-fold-toggle-inline {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.ProseMirror h1[data-collapsed="true"],
+.ProseMirror h2[data-collapsed="true"],
+.ProseMirror h3[data-collapsed="true"],
+.ProseMirror h4[data-collapsed="true"],
+.ProseMirror h5[data-collapsed="true"],
+.ProseMirror h6[data-collapsed="true"] {
+  color: var(--color-muted-foreground, #94a3b8);
+  opacity: 0.75;
+}
+
+.ProseMirror h1[data-collapsed="true"] .numbered-heading-number,
+.ProseMirror h2[data-collapsed="true"] .numbered-heading-number,
+.ProseMirror h3[data-collapsed="true"] .numbered-heading-number,
+.ProseMirror h4[data-collapsed="true"] .numbered-heading-number,
+.ProseMirror h5[data-collapsed="true"] .numbered-heading-number,
+.ProseMirror h6[data-collapsed="true"] .numbered-heading-number {
+  opacity: 0.5;
+}
+
+.numbered-heading-number {
+  display: inline-flex;
+  align-items: baseline;
+  justify-content: flex-end;
+  min-width: var(--numbered-heading-number-width);
+  margin-right: 6px;
+  border: none;
+  background: transparent;
+  color: var(--color-primary, #ff8c42);
+  font-weight: 500;
+  font-family: 'SFMono-Regular', Consolas, Menlo, ui-monospace, monospace;
+  pointer-events: none;
+}
+
+.ProseMirror h1[data-numbered="true"],
+.ProseMirror h2[data-numbered="true"],
+.ProseMirror h3[data-numbered="true"],
+.ProseMirror h4[data-numbered="true"],
+.ProseMirror h5[data-numbered="true"],
+.ProseMirror h6[data-numbered="true"] {
+  margin-left: 0 !important;
+}
+
+/* 有编号的 heading 隐藏默认 placeholder，由 NumberingPlugin 统一渲染 */
+.ProseMirror h1[data-numbered="true"].is-empty::before,
+.ProseMirror h2[data-numbered="true"].is-empty::before,
+.ProseMirror h3[data-numbered="true"].is-empty::before,
+.ProseMirror h4[data-numbered="true"].is-empty::before,
+.ProseMirror h5[data-numbered="true"].is-empty::before,
+.ProseMirror h6[data-numbered="true"].is-empty::before {
+  display: none !important;
+}
+
+/* 序号后的 placeholder 样式 */
+.numbered-heading-placeholder {
+  color: var(--muted-foreground, #94a3b8);
+  opacity: 0.6;
+  pointer-events: none;
+  font-weight: normal;
+}
+
+/* 所有编号标题统一左对齐，不根据 indent 缩进 */
+
+.heading-folded-content,
+.heading-folded-content[data-type="columns"],
+.columns-view-grid.heading-folded-content,
+.heading-folded-content .columns-view-grid,
+.heading-folded-content > div {
+  display: none !important;
+}
+
+.fold-range-preview {
+  background: color-mix(in srgb, var(--color-primary, #ff8c42) 10%, transparent);
+}

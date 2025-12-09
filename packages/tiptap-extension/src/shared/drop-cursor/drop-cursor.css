@@ -1,0 +1,41 @@
+/**
+ * 拖放引导线样式
+ */
+
+/* 基础样式 */
+.syllo-dropcursor {
+  position: absolute !important;
+  pointer-events: none !important;
+  z-index: 9999 !important;
+}
+
+/* 横向指示线 */
+.syllo-dropcursor--horizontal {
+  height: 2px !important;
+  background: var(--primary, #3b82f6) !important;
+}
+
+/* 竖向指示线 */
+.syllo-dropcursor--vertical {
+  width: 2px !important;
+  background: var(--primary, #3b82f6) !important;
+}
+
+/* 列边缘竖线 */
+.syllo-dropcursor--vertical.column-edge {
+  width: 2px !important;
+  background: var(--primary, #3b82f6) !important;
+}
+
+/* 不允许放置状态 */
+.syllo-dropcursor.not-allowed {
+  background: #ef4444 !important;
+}
+
+/* 覆盖 ProseMirror 默认样式 - 确保官方 dropcursor 被完全隐藏 */
+.ProseMirror .ProseMirror-dropcursor,
+.ProseMirror .prosemirror-dropcursor {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+}

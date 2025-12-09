@@ -1,0 +1,244 @@
+/**
+ * 多列容器样式（一比一复刻HTML实现）
+ */
+
+.columns-view-grid {
+  width: 100%;
+  margin: 20px 0;
+  position: relative;
+}
+
+.columns-view-grid[data-stacked="true"] .columns-content-grid {
+  grid-template-columns: 1fr !important;
+}
+
+.columns-view-grid[data-stacked="true"] .multi-column-resize-handle,
+.columns-view-grid[data-stacked="true"] .percent-label-wrapper {
+  display: none !important;
+}
+
+.columns-container-grid {
+  display: grid;
+  gap: 12px;
+  position: relative;
+  min-height: 100px;
+}
+
+.columns-content-grid {
+  display: contents !important;
+}
+
+/* Tiptap 的 NodeViewContent 会添加一个包装层，也需要设置为 contents */
+.columns-content-grid [data-node-view-wrapper] {
+  display: contents !important;
+}
+
+/* 确保 column 元素参与 grid 布局 */
+.columns-container-grid .multi-column-item,
+.columns-container-grid [data-type="column"] {
+  background: transparent;
+  border-radius: 4px;
+  padding: 12px;
+  min-height: 100px;
+  position: relative;
+  z-index: 0;
+  transition: background 0.2s ease;
+  border: 1px solid transparent;
+}
+
+.columns-view-grid[data-show-styles="true"] .columns-container-grid [data-type="column"] {
+  background: var(--bg-hover, rgba(0, 0, 0, 0.03));
+  border-color: var(--border-default, rgba(0, 0, 0, 0.1));
+}
+
+[data-type="column"] .column-content {
+  outline: none;
+  min-height: 60px;
+}
+
+[data-type="column"] .column-content:focus {
+  outline: 2px solid var(--primary, #3370ff);
+  outline-offset: -2px;
+  border-radius: 3px;
+}
+
+[data-type="column"] .column-content p {
+  margin: 0 0 8px 0;
+}
+
+[data-type="column"] .column-content:empty::before {
+  content: '点击添加内容...';
+  color: rgba(156, 163, 175, 0.6);
+  font-size: 14px;
+}
+
+/* 拖拽手柄 */
+.multi-column-resize-handle {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 24px;
+  transform: translateX(-50%);
+  z-index: 10;
+  cursor: col-resize;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.resize-handle-dragger {
+  width: 2px;
+  height: 100%;
+  background: var(--border-default, rgba(0, 0, 0, 0.1));
+  border-radius: 1px;
+  opacity: 0 !important;
+  transition: all 0.2s;
+}
+
+.columns-view-grid[data-show-styles="true"] .resize-handle-dragger {
+  opacity: 0.25 !important;
+}
+
+.multi-column-resize-handle:hover .resize-handle-dragger {
+  opacity: 1 !important;
+  background: var(--primary, #3370ff) !important;
+  width: 3px !important;
+}
+
+.columns-view-grid[data-dragging="true"] .resize-handle-dragger {
+  opacity: 1 !important;
+}
+
+/* 拖拽时优化渲染性能 */
+.columns-view-grid[data-dragging="true"] .columns-container-grid {
+  will-change: contents;
+}
+
+.columns-view-grid[data-dragging="true"] [data-type="column"] {
+  will-change: width;
+  transition: none !important; /* 拖拽时禁用过渡动画 */
+}
+
+.multi-column-resize-handle.active .resize-handle-dragger {
+  background: var(--primary, #3370ff) !important;
+  width: 3px !important;
+}
+
+/* 添加列按钮区域 */
+.add-column-area {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.column-dot-indicator {
+  width: 4px;
+  height: 4px;
+  background: var(--border-default, rgba(0, 0, 0, 0.1));
+  border-radius: 50%;
+  opacity: 0 !important;
+  transition: opacity 0.25s;
+  position: absolute;
+}
+
+.columns-view-grid[data-show-styles="true"] .column-dot-indicator {
+  opacity: 0.6 !important;
+}
+
+.multi-column-resize-handle:hover .column-dot-indicator {
+  opacity: 0 !important;
+}
+
+.add-column-btn {
+  position: absolute;
+  width: 22px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  opacity: 0;
+  transform: scale(0);
+  transition: opacity 0.15s, transform 0.15s;
+  padding: 0;
+  pointer-events: auto;
+}
+
+/* 确保SVG的第一个path（背景气泡）有颜色 */
+.add-column-btn svg path:first-child {
+  fill: var(--primary);
+}
+
+.multi-column-resize-handle:hover .add-column-btn {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* 百分比标签 */
+.percent-label-wrapper {
+  position: absolute;
+  top: 10px;
+  pointer-events: none;
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 2px;
+  z-index: 20;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.columns-view-grid[data-dragging="true"] .percent-label-wrapper {
+  opacity: 1;
+}
+
+.percent-label-wrapper span {
+  font-size: 11px;
+  padding: 2px 6px;
+  border-radius: 3px;
+  background: var(--bg-surface, #ffffff);
+  color: var(--text-primary, #1f2329);
+  border: 1px solid var(--border-default, rgba(0, 0, 0, 0.1));
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-weight: 500;
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+  .columns-content-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .multi-column-resize-handle,
+  .percent-label-wrapper {
+    display: none;
+  }
+}
+
+/* 暗色主题支持 */
+.dark .columns-view-grid[data-show-styles="true"] .columns-container-grid [data-type="column"] {
+  background: rgba(166, 166, 166, 0.08);
+  border-color: rgba(166, 166, 166, 0.2);
+}
+
+.dark .resize-handle-dragger {
+  background: rgba(166, 166, 166, 0.2);
+}
+
+.dark .percent-label-wrapper span {
+  background: var(--bg-surface, #2a2a2a);
+  color: var(--text-primary, #f0f0f0);
+  border-color: rgba(166, 166, 166, 0.2);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.dark .column-dot-indicator {
+  background: rgba(166, 166, 166, 0.2);
+}

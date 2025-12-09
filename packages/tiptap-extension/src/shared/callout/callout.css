@@ -1,0 +1,257 @@
+/**
+ * Callout 高亮块样式
+ * 基于 callout-demo.html 复刻
+ */
+
+/* Callout 变量 */
+:root {
+  --callout-bg: rgba(51, 112, 255, 0.06);
+  --callout-border: rgba(51, 112, 255, 0.2);
+  --surface-elevated: #ffffff;
+  --border: rgba(0, 0, 0, 0.1);
+  --border-hover: rgba(0, 0, 0, 0.2);
+}
+
+/* 暗黑模式 */
+.dark {
+  --surface-elevated: #2a2a2a;
+  --border: rgba(255, 255, 255, 0.1);
+  --border-hover: rgba(255, 255, 255, 0.2);
+  --callout-bg: rgba(51, 112, 255, 0.12);
+  --callout-border: rgba(51, 112, 255, 0.3);
+}
+
+/* Callout 容器 */
+.callout-wrapper {
+  display: block;
+  margin: 16px 0;
+}
+
+.callout-container {
+  background-color: var(--callout-bg);
+  border: 1px solid var(--callout-border);
+  border-radius: 8px;
+  padding: 16px;
+  min-height: 60px;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+/* 不同类型的 hover 效果 */
+.callout-info:hover {
+  border-color: #3370ff;
+  box-shadow: 0 2px 8px rgba(51, 112, 255, 0.2);
+}
+
+.callout-warning:hover {
+  border-color: #ff8c00;
+  box-shadow: 0 2px 8px rgba(255, 140, 0, 0.2);
+}
+
+.callout-success:hover {
+  border-color: #22c55e;
+  box-shadow: 0 2px 8px rgba(34, 197, 94, 0.2);
+}
+
+.callout-danger:hover {
+  border-color: #ef4444;
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.2);
+}
+
+.callout-note:hover {
+  border-color: #6b7280;
+  box-shadow: 0 2px 8px rgba(107, 114, 128, 0.2);
+}
+
+/* 不同类型的 Callout 颜色 */
+.callout-info {
+  --callout-bg: rgba(51, 112, 255, 0.06);
+  --callout-border: rgba(51, 112, 255, 0.2);
+}
+
+.callout-warning {
+  --callout-bg: rgba(255, 140, 0, 0.06);
+  --callout-border: rgba(255, 140, 0, 0.2);
+}
+
+.callout-success {
+  --callout-bg: rgba(34, 197, 94, 0.06);
+  --callout-border: rgba(34, 197, 94, 0.2);
+}
+
+.callout-danger {
+  --callout-bg: rgba(239, 68, 68, 0.06);
+  --callout-border: rgba(239, 68, 68, 0.2);
+}
+
+.callout-note {
+  --callout-bg: rgba(107, 114, 128, 0.06);
+  --callout-border: rgba(107, 114, 128, 0.2);
+}
+
+/* 紫色主题 */
+.callout-purple {
+  --callout-bg: rgba(168, 85, 247, 0.06);
+  --callout-border: rgba(168, 85, 247, 0.2);
+}
+
+.callout-purple:hover {
+  border-color: #a855f7;
+  box-shadow: 0 2px 8px rgba(168, 85, 247, 0.2);
+}
+
+/* 橙色主题 */
+.callout-orange {
+  --callout-bg: rgba(249, 115, 22, 0.06);
+  --callout-border: rgba(249, 115, 22, 0.2);
+}
+
+.callout-orange:hover {
+  border-color: #f97316;
+  box-shadow: 0 2px 8px rgba(249, 115, 22, 0.2);
+}
+
+/* 青色主题 */
+.callout-cyan {
+  --callout-bg: rgba(6, 182, 212, 0.06);
+  --callout-border: rgba(6, 182, 212, 0.2);
+}
+
+.callout-cyan:hover {
+  border-color: #06b6d4;
+  box-shadow: 0 2px 8px rgba(6, 182, 212, 0.2);
+}
+
+/* 暗黑模式下的颜色调整 */
+.dark .callout-warning {
+  --callout-bg: rgba(255, 140, 0, 0.12);
+  --callout-border: rgba(255, 140, 0, 0.3);
+}
+
+.dark .callout-success {
+  --callout-bg: rgba(34, 197, 94, 0.12);
+  --callout-border: rgba(34, 197, 94, 0.3);
+}
+
+.dark .callout-danger {
+  --callout-bg: rgba(239, 68, 68, 0.12);
+  --callout-border: rgba(239, 68, 68, 0.3);
+}
+
+.dark .callout-note {
+  --callout-bg: rgba(107, 114, 128, 0.12);
+  --callout-border: rgba(107, 114, 128, 0.3);
+}
+
+.dark .callout-purple {
+  --callout-bg: rgba(168, 85, 247, 0.12);
+  --callout-border: rgba(168, 85, 247, 0.3);
+}
+
+.dark .callout-orange {
+  --callout-bg: rgba(249, 115, 22, 0.12);
+  --callout-border: rgba(249, 115, 22, 0.3);
+}
+
+.dark .callout-cyan {
+  --callout-bg: rgba(6, 182, 212, 0.12);
+  --callout-border: rgba(6, 182, 212, 0.3);
+}
+
+/* Emoji 选择器 */
+.callout-emoji-container {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  width: 24px;
+  height: 26px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.callout-emoji-display {
+  font-size: 20px;
+  line-height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  user-select: none;
+}
+
+/* Emoji 选择面板 */
+.emoji-picker {
+  position: absolute;
+  top: 32px;
+  left: 0;
+  background-color: var(--surface-elevated);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4px;
+}
+
+.emoji-picker button {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  background: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.emoji-picker button:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  border-color: var(--border-hover);
+}
+
+.dark .emoji-picker button:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* 内容区域 */
+.callout-content {
+  margin-left: 32px;
+  min-height: 26px;
+  outline: none;
+  line-height: 1.6;
+}
+
+.callout-content:focus {
+  outline: none;
+}
+
+.callout-content p {
+  margin: 0 0 8px 0;
+  line-height: 1.6;
+}
+
+.callout-content p:first-child {
+  margin-top: 0;
+}
+
+.callout-content p:last-child {
+  margin-bottom: 0;
+}
+
+.callout-content:empty::before {
+  content: '输入内容...';
+  color: rgba(0, 0, 0, 0.3);
+}
+
+.dark .callout-content:empty::before {
+  color: rgba(255, 255, 255, 0.3);
+}
